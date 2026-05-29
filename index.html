@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ojele | Portfolio</title>
+<style>
+/* ─── RESET & FONTS ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:   #F5F0E8;
+  --peach:   #E8A98A;
+  --salmon:  #D4866A;
+  --warm:    #C07050;
+  --dark:    #2A1F1A;
+  --mid:     #6B4C3B;
+  --card-bg: #EDE7DC;
+  --nav-h:   64px;
+  /* Updated to Modern Bold Sans-Serif */
+  --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-main);
+  background: var(--cream);
+  color: var(--dark);
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* ─── NAVBAR ─────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: rgba(245,240,232,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(196,140,100,0.18);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  z-index: 1000;
+}
+
+.nav-brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.nav-logo { width: 34px; height: 34px; background: var(--salmon); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.nav-name { font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; font-size: 16px; }
+
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a { 
+    text-decoration: none; color: var(--mid); font-weight: 700; font-size: 13px; 
+    text-transform: uppercase; transition: color 0.3s;
+}
+.nav-links a.active { color: var(--salmon); }
+
+/* ─── PAGES ─────────────────────────────────────────────────────── */
+.page { display: none; min-height: 100vh; padding-top: var(--nav-h); animation: fadeIn 0.4s ease; }
+.page.active { display: flex; flex-direction: column; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ─── HOME (Cleaned Landing) ────────────────────────────────────── */
+.hero {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.hero-image { background: #ddd; position: relative; }
+.hero-image img { width: 100%; height: 100%; object-fit: cover; }
+.hero-text { padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+.hero-text h1 { font-size: 3.5rem; font-weight: 900; line-height: 1; margin-bottom: 20px; text-transform: uppercase; }
+.hero-bio { font-size: 16px; color: var(--mid); margin-bottom: 30px; max-width: 500px; }
+
+/* ─── WORKS (Swipe on Mobile) ───────────────────────────────────── */
+.gallery-container { padding: 40px; }
+.masonry-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; }
+  /* Swipe Gallery Logic */
+  .masonry-gallery {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery-item {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+}
+
+.gallery-item { position: relative; border-radius: 8px; overflow: hidden; background: var(--card-bg); cursor: pointer; }
+.gallery-item img { width: 100%; display: block; transition: transform 0.3s; }
+.gallery-item:hover img { transform: scale(1.05); }
+
+/* ─── ABOUT (Full Screen Fixed) ─────────────────────────────────── */
+#page-about {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 20px;
+}
+#page-about.active { display: flex; }
+.about-content { max-width: 800px; width: 100%; }
+.about-content h2 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; }
+
+/* ─── FOOTER ─────────────────────────────────────────────────────── */
+footer {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--mid);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ─── LIGHTBOX ───────────────────────────────────────────────────── */
+.lightbox {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+  display: none; z-index: 2000; align-items: center; justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lb-content { width: 90%; max-width: 1000px; }
+.lb-video-wrap { position: relative; padding-bottom: 56.25%; height: 0; }
+.lb-video-wrap iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand" onclick="showPage('home')">
+    <div class="nav-logo">✏️</div>
+    <span class="nav-name">Ojele</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" id="link-home" class="active">Home</a></li>
+    <li><a href="#" onclick="showPage('works')" id="link-works">Works</a></li>
+    <li><a href="#" onclick="showPage('about')" id="link-about">About</a></li>
+    <li><a href="#" onclick="showPage('contact')" id="link-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-image">
+      <img src="/mnt/user-data/uploads/63632A9E-FBAC-4BDF-9A29-1497E1603456.png" alt="Art">
+    </div>
+    <div class="hero-text">
+      <h1>2D Artist & Designer</h1>
+      <p class="hero-bio">Expertise in character design, animation, and world-building. Transforming imagination into digital reality with a focus on collaborative storytelling.</p>
+      <button onclick="showPage('works')" style="padding: 15px 30px; background: var(--salmon); color: white; border: none; font-weight: 700; cursor: pointer; width: fit-content;">VIEW WORKS</button>
+    </div>
+  </section>
+  <footer>© 2026 Ojele. All rights reserved.</footer>
+</div>
+
+<div id="page-works" class="page">
+  <div class="gallery-container">
+    <div class="masonry-gallery" id="galleryGrid"></div>
+  </div>
+  <footer>© 2026 Ojele. All rights reserved.</footer>
+</div>
+
+<div id="page-about" class="page">
+  <div class="about-content">
+    <h2>CREATIVE VISION</h2>
+    <p style="font-size: 1.2rem; margin-bottom: 30px;">I specialize in the visual language of 2D animation and digital assets. Whether it's crafting characters for "Elmwood Middle School" or building assets for the NFT market, I focus on clean aesthetics and functional design.</p>
+    <p>Based in Grover’s Hollow. Available for worldwide freelance opportunities.</p>
+  </div>
+  <footer>© 2026 Ojele. All rights reserved.</footer>
+</div>
+
+<div id="page-contact" class="page">
+    <div style="padding: 100px 40px; text-align: center;">
+        <h2>LET'S TALK</h2>
+        <p>Email: iamojele@gmail.com</p>
+    </div>
+    <footer>© 2026 Ojele. All rights reserved.</footer>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+  <div class="lb-content" id="lbContent"></div>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('link-' + id).classList.add('active');
+  if(id === 'works') buildGallery();
+}
+
+const DRIVE_FILES = [
+  { id: '1Y9Aqz6XFQEDYOCPcE3XYkedG4RygC69M', name: 'Satoshi', type: 'video' },
+  { id: '1A64HkQtPOadIQYI5XGTwpP5HWYjTPILN', name: 'Bean Animation', type: 'video' },
+  { id: '16H0uDkCNXeYYIz_QKt80GGKoR_8Y5uN6', name: 'Design 3', type: 'image' }
+  // ... rest of your files can be added here
+];
+
+function buildGallery() {
+  const grid = document.getElementById('galleryGrid');
+  if(grid.children.length > 0) return;
+  DRIVE_FILES.forEach(file => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    const img = document.createElement('img');
+    img.src = `https://drive.google.com/thumbnail?id=${file.id}&sz=w800`;
+    item.appendChild(img);
+    item.onclick = () => openLightbox(file);
+    grid.appendChild(item);
+  });
+}
+
+function openLightbox(file) {
+  const lb = document.getElementById('lightbox');
+  const content = document.getElementById('lbContent');
+  if(file.type === 'video') {
+    // Optimized video preview
+    content.innerHTML = `<div class="lb-video-wrap"><iframe src="https://drive.google.com/file/d/${file.id}/preview" allow="autoplay"></iframe></div>`;
+  } else {
+    content.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${file.id}&sz=w1200" style="width:100%;">`;
+  }
+  lb.classList.add('open');
+}
+</script>
+</body>
+</html>
