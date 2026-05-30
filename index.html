@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Ojele | Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 
 <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-/* ───────────────────────── THEME ───────────────────────── */
 :root{
   --bg:#0E0B08;
   --bg2:#161008;
@@ -18,128 +20,61 @@
   --salmon:#D4866A;
   --warm:#C07050;
   --mid:#B8A090;
-  --card:#1C1208;
+  --card-bg:#1E1610;
   --border:rgba(232,169,138,.18);
+  --nav-h:64px;
   --font:'Barlow Condensed',sans-serif;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
 body{
+  font-family:var(--font);
   background:var(--bg);
   color:var(--cream);
-  font-family:var(--font);
   overflow-x:hidden;
 }
 
-/* ───────────────────────── NAV ───────────────────────── */
+/* NAV */
 nav{
-  position:fixed;top:0;left:0;right:0;
-  height:64px;
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);
   background:rgba(14,11,8,.92);
-  backdrop-filter:blur(16px);
+  backdrop-filter:blur(18px);
   border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 40px;
-  z-index:1000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 40px;z-index:9999;
 }
 
-.nav-brand{display:flex;gap:10px;align-items:center;cursor:pointer}
-.nav-logo{width:32px;height:32px;background:var(--salmon);border-radius:50%;display:flex;align-items:center;justify-content:center}
-.nav-name{font-weight:800;letter-spacing:.1em}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{color:var(--mid);text-decoration:none;font-weight:700;font-size:13px}
-.nav-links a:hover,.nav-links a.active{color:var(--salmon)}
-
-/* ───────────────────────── PAGES ───────────────────────── */
-.page{display:none;min-height:100vh;padding-top:64px}
-.page.active{display:flex;flex-direction:column}
-
-/* ───────────────────────── HOME ───────────────────────── */
-.hero{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  min-height:calc(100vh - 64px);
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{
+  color:var(--mid);text-decoration:none;font-weight:700;
+  text-transform:uppercase;font-size:13px;
 }
+.nav-links a.active{color:var(--salmon)}
 
-.hero-image-half img{
-  width:100%;height:100%;object-fit:cover;
-}
+/* PAGE SYSTEM */
+.page{display:none;min-height:100vh;padding-top:var(--nav-h);}
+.page.active{display:flex;flex-direction:column;}
 
-.hero-text-half{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:60px;
-}
+/* HOME */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.hero-text{padding:60px;display:flex;flex-direction:column;justify-content:center}
+.hero-title-line{opacity:0;transform:translateY(20px);display:block}
+.hero-title-line.revealed{animation:fade .5s forwards}
+@keyframes fade{to{opacity:1;transform:translateY(0)}}
 
-.hero-title-line{
-  display:block;
-  font-size:clamp(36px,5vw,70px);
-  font-weight:800;
-  opacity:0;
-  transform:translateY(20px);
-  animation:reveal .6s forwards;
-}
-
-@keyframes reveal{to{opacity:1;transform:translateY(0)}}
-
-.hero-bio{color:var(--mid);margin-top:20px;line-height:1.6;min-height:80px}
-
-.btn-cta{
-  margin-top:25px;
-  background:var(--salmon);
-  border:none;
-  padding:12px 24px;
-  border-radius:999px;
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
-}
-
-/* ───────────────────────── WORKS (UPDATED) ───────────────────────── */
-#page-works{
-  background:#0a0805;
-  padding:40px;
-}
-
-.masonry-gallery{
-  column-count:3;
-  column-gap:15px;
-}
-
-.gallery-item{
-  break-inside:avoid;
-  margin-bottom:15px;
-  border-radius:4px;
-  overflow:hidden;
-}
-
-.gallery-item img{
-  width:100%;
-  display:block;
-  transition:.3s ease;
-}
-
-.gallery-item:hover img{
-  transform:scale(1.05);
-}
-
-/* ───────────────────────── ABOUT (DARK VERSION) ───────────────────────── */
+/* ABOUT */
 #page-about{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  background:var(--bg);
   justify-content:center;
-  padding:40px 20px;
+  align-items:center;
 }
 
 .about-box{
-  background:var(--card);
-  border:1px solid var(--border);
-  padding:40px 30px;
-  border-radius:12px;
-  max-width:500px;
+  background:#1C1208;
+  border:1px solid var(--peach);
+  padding:40px;
+  max-width:520px;
   text-align:center;
+  border-radius:12px;
 }
 
 .about-box p{
@@ -149,143 +84,145 @@ nav{
 }
 
 .about-box h2{
-  font-size:52px;
-  font-weight:800;
+  color:var(--cream);
+  font-size:48px;
+  line-height:1;
   margin-bottom:25px;
 }
 
 .btn-forgotten{
   background:var(--peach);
+  color:var(--bg); /* FIXED */
   border:none;
-  padding:10px 24px;
+  padding:10px 20px;
   border-radius:8px;
-  font-weight:700;
   cursor:pointer;
+  font-weight:700;
 }
 
-/* ───────────────────────── CONTACT ───────────────────────── */
+/* CONTACT */
 #page-contact{
-  display:flex;
-  align-items:center;
+  background:var(--peach);
   justify-content:center;
-  padding:40px 20px;
+  align-items:center;
 }
 
-.contact-wrap{
-  text-align:center;
-  width:100%;
-  max-width:520px;
-}
-
+.contact-wrap{text-align:center}
 .contact-heading{
-  font-size:32px;
-  font-weight:800;
-  margin-bottom:30px;
+  font-size:36px;
+  color:var(--bg);
+  margin-bottom:25px;
+  text-transform:uppercase;
 }
 
 .contact-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+  display:flex;
+  gap:10px;
 }
 
-.contact-wrap input,
-.contact-wrap textarea{
-  width:100%;
+input,textarea{
   padding:12px;
   border:none;
   border-radius:6px;
-  margin-bottom:12px;
+  font-family:var(--font);
 }
 
-textarea{min-height:120px}
+textarea{width:100%;margin-top:10px}
 
 .btn-submit{
+  margin-top:15px;
   background:var(--salmon);
-  border:none;
-  padding:10px 28px;
-  border-radius:8px;
   color:#fff;
-  font-weight:700;
+  border:none;
+  padding:12px 30px;
+  border-radius:30px;
   cursor:pointer;
-  margin:10px auto;
-  display:block;
 }
 
+/* SOCIAL ICONS ONLY */
 .socials{
   display:flex;
   justify-content:center;
-  gap:16px;
+  gap:15px;
   margin-top:20px;
 }
 
-/* ───────────────────────── FOOTER ───────────────────────── */
-.site-footer{
-  margin-top:auto;
-  text-align:center;
-  padding:20px;
-  font-size:10px;
-  color:rgba(245,240,232,.3);
+.socials a{
+  width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:rgba(0,0,0,.15);
+  color:var(--bg);
+  text-decoration:none;
 }
 
+/* WORKS */
+#page-works{background:#0a0805}
+.works-grid{
+  columns:3;
+  column-gap:10px;
+  padding:30px;
+}
+.work-item{
+  break-inside:avoid;
+  margin-bottom:10px;
+}
+.work-item img{width:100%;display:block}
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-brand" onclick="showPage('home')">
-    <div class="nav-logo">✏️</div>
-    <span class="nav-name">Ojele</span>
-  </div>
-
+  <div>OJELE</div>
   <ul class="nav-links">
-    <li><a id="nav-home" class="active" onclick="showPage('home')">Home</a></li>
-    <li><a id="nav-works" onclick="showPage('works')">Works</a></li>
-    <li><a id="nav-about" onclick="showPage('about')">About</a></li>
-    <li><a id="nav-contact" onclick="showPage('contact')">Contact</a></li>
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('works')" id="nav-works">Works</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
 </nav>
 
 <!-- HOME -->
 <div id="page-home" class="page active">
-  <section class="hero">
-    <div class="hero-image-half">
-      <img src="/mnt/user-data/uploads/63632A9E-FBAC-4BDF-9A29-1497E1603456.png"/>
-    </div>
-
-    <div class="hero-text-half">
+  <div class="hero">
+    <div></div>
+    <div class="hero-text">
       <span class="hero-title-line">2D Animator</span>
       <span class="hero-title-line">Character Designer</span>
-      <span class="hero-title-line">2D Illustrator</span>
-      <span class="hero-title-line">Artistic Freelancer</span>
-
-      <p class="hero-bio" id="heroBio"></p>
-
-      <button class="btn-cta" onclick="showPage('works')">View Portfolio</button>
+      <span class="hero-title-line">Illustrator</span>
     </div>
-  </section>
+  </div>
 </div>
 
 <!-- WORKS -->
 <div id="page-works" class="page">
-  <div class="masonry-gallery" id="worksGrid"></div>
+  <div class="works-grid">
+    <div class="work-item"><img src="https://picsum.photos/600/800"/></div>
+    <div class="work-item"><img src="https://picsum.photos/601/900"/></div>
+    <div class="work-item"><img src="https://picsum.photos/602/700"/></div>
+  </div>
 </div>
 
 <!-- ABOUT -->
 <div id="page-about" class="page">
   <div class="about-box">
-    <p>Hello! I am a highly skilled 2D artist with years of experience. My expertise encompasses animation, character design, background design, illustrations, NFT art, and game art.</p>
-    <h2>hey I already told you about myself on the landing page👀</h2>
-    <button class="btn-forgotten" onclick="showPage('home')">you've forgotten, haven't you?</button>
+    <p>
+      Hello! I am a highly skilled 2D artist with years of experience. My expertise encompasses animation, character design, background design, illustrations, NFT art… wait a minute
+    </p>
+
+    <h2>Heyyy I already told you about myself on the landing page👀</h2>
+
+    <button class="btn-forgotten" onclick="showPage('home')">
+      you've forgotten, haven't you?
+    </button>
   </div>
 </div>
 
 <!-- CONTACT -->
 <div id="page-contact" class="page">
   <div class="contact-wrap">
-    <h2 class="contact-heading">CONTACT & INQUIRIES</h2>
+    <h2 class="contact-heading">Contact & Inquiries</h2>
 
     <div class="contact-row">
       <input placeholder="Name"/>
@@ -297,39 +234,28 @@ textarea{min-height:120px}
     <button class="btn-submit">SUBMIT</button>
 
     <div class="socials">
-      <span>X</span>
-      <span>LinkedIn</span>
-      <span>TikTok</span>
+      <a href="#">X</a>
+      <a href="#">in</a>
+      <a href="#">TT</a>
     </div>
   </div>
 </div>
 
 <script>
-function showPage(p){
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
+function showPage(name){
+
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('nav-'+name).classList.add('active');
 }
 
-/* typing bio */
-const BIO=`Hello! I am a highly skilled 2D artist with years of experience. My expertise encompasses animation, character design, background design, illustrations, NFT art, and game art. I understand the importance of clear communication and collaboration to bring your ideas to life. I thrive on frequent and consistent feedback throughout the entire process.`;
-
-let i=0;
-function type(){
-  if(i<BIO.length){
-    document.getElementById('heroBio').textContent+=BIO[i++];
-    setTimeout(type,12);
-  }
-}
-window.onload=type;
-
-/* WORKS CMS */
-const FILES=[];
-
-function buildWorks(){
-  const grid=document.getElementById('worksGrid');
-  if(grid.children.length) return;
-
-  FILES.forEach(()=>{});
+/* home animation */
+window.onload = () => {
+  document.querySelectorAll('.hero-title-line').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('revealed'), i*200);
+  });
 }
 </script>
 
