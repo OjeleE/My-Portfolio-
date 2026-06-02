@@ -178,104 +178,169 @@ nav{
 .lb-close:hover{opacity:1;transform:rotate(90deg)}
 
 /* ══════════════════════ ABOUT ══════════════════════ */
-
-  #page-about{ background:#F0EBE3; } /* light cream — matches reference */
-.about-page-inner{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  padding:60px 24px 40px;
+#page-about{
+background:#F0EBE3;
 }
 
-.about-box{
-  background-color:#EFDBCF;   /* warm peach interior — matches reference */
-  border-radius:16px;
-  padding:44px 36px 40px;
-  max-width:480px;
-  width:100%;
-  text-align:center;
-  position:relative;
-  border:none;                 /* no border — clean card like reference */
+.about-container{
+max-width:1200px;
+margin:auto;
+padding:60px 40px;
 }
 
-.about-box p{
-  font-family:var(--font);
-  font-size:15px;
-  font-weight:700;
-  line-height:1.35;
-  color:#3A2E27;
-  margin-bottom:28px;
-  max-width:88%;
-  margin-left:auto;
-  margin-right:auto;
+.about-hero{
+display:grid;
+grid-template-columns:1.3fr .8fr;
+gap:40px;
+align-items:start;
 }
 
-.about-box h2{
-  font-family:var(--font);
-  font-size:clamp(38px,6vw,56px);
-  font-weight:800;
-  line-height:0.96;
-  color:#1A120A;
-  text-transform:lowercase;
-  margin-bottom:32px;
+.about-tag{
+font-size:13px;
+letter-spacing:.15em;
+font-weight:700;
+color:#BE8A73;
 }
 
-.btn-forgotten{
-  background-color:var(--salmon);
-  color:#fff;
-  font-family:var(--font);
-  font-size:14px;
-  font-weight:800;
-  padding:14px 22px;
-  border:none;
-  border-radius:14px;
-  cursor:pointer;
-  transition:transform .2s,box-shadow .2s,background .2s;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-}
-.btn-forgotten:hover{
-  transform:scale(1.05);
-  box-shadow:0 8px 24px rgba(212,134,106,.4);
-  background:var(--warm);
+.about-title{
+margin-top:18px;
+font-size:clamp(42px,5vw,78px);
+line-height:.95;
+color:#2A201B;
 }
 
-/* thought bubble */
-.thought-area{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  margin-top:20px;
-}
-.bubble-dot{
-  background:#C8A898;
-  border-radius:50%;
-}
-.thought-cloud{
-  width:110px;
-  height:78px;
-  background-image:url('https://drive.google.com/thumbnail?id=1TqCEa05xOoIBeFUkZs0ub756ckVnDL59&sz=w400');
-  background-size:cover;
-  background-position:center;
-  border-radius:50% 50% 44% 44% / 55% 55% 45% 45%;
-  box-shadow:0 6px 20px rgba(0,0,0,.22);
-  animation:floatAnim 4s ease-in-out infinite;
-}
-@keyframes floatAnim{
-  0%,100%{transform:translateY(0) rotate(-1.5deg)}
-  50%{transform:translateY(-11px) rotate(1.5deg)}
+.about-title span{
+display:block;
+font-style:italic;
+color:#D4866A;
 }
 
-/* about footer */
-#page-about .site-footer{
-  background:transparent;
-  color:rgba(58,46,39,.35);
-  border-top:1px solid rgba(58,46,39,.12);
-  width:100%;
+.quote-card{
+background:#F5E7DD;
+padding:34px;
+border-radius:28px;
+font-style:italic;
+font-size:22px;
+line-height:1.4;
+color:#3E312A;
+transition:.3s;
 }
+
+.quote-card:hover{
+transform:translateY(-4px);
+}
+
+.section-divider{
+height:1px;
+background:rgba(0,0,0,.08);
+margin:60px 0;
+}
+
+.section-title{
+font-size:22px;
+letter-spacing:.12em;
+text-transform:uppercase;
+color:#BE8A73;
+margin-bottom:24px;
+}
+
+.experience-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+}
+
+.exp-card{
+background:#F6ECE5;
+padding:22px;
+border-radius:18px;
+font-size:16px;
+line-height:1.4;
+color:#332821;
+transition:.25s;
+}
+
+.exp-card:hover{
+transform:translateY(-4px);
+background:#F9F0EA;
+}
+
+.services-framework{
+margin-top:50px;
+height:520px;
+position:relative;
+}
+
+.service-center{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#D4866A;
+color:white;
+padding:20px 30px;
+border-radius:100px;
+font-weight:800;
+letter-spacing:.08em;
+}
+
+.service-node{
+position:absolute;
+background:#F6ECE5;
+padding:18px;
+border-radius:20px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:10px;
+width:180px;
+transition:.3s;
+cursor:pointer;
+}
+
+.service-node:hover{
+transform:translateY(-6px);
+}
+
+.service-node img{
+width:34px;
+height:34px;
+}
+
+.top{
+top:0;
+left:50%;
+transform:translateX(-50%);
+}
+
+.left{
+top:50%;
+left:0;
+transform:translateY(-50%);
+}
+
+.right{
+top:50%;
+right:0;
+transform:translateY(-50%);
+}
+
+.bottom-left{
+bottom:0;
+left:15%;
+}
+
+.bottom-right{
+bottom:0;
+right:15%;
+}
+
+.bottom{
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+}
+
 /* ══════════════════════ CONTACT ══════════════════════ */
 #page-contact{background:var(--peach);padding:0}
 .contact-wrap{flex:1;display:flex;flex-direction:column;
@@ -411,19 +476,116 @@ body::before{content:'';position:fixed;inset:0;
 
 <!-- ABOUT -->
 <div id="page-about" class="page">
-  <div class="about-page-inner">
-    <div class="about-box">
-      <p>Hello! I am a highly skilled 2D artist with years of experience. My expertise encompasses animation, character design, background design, illustrations, NFT art, and game art.</p>
-      <h2>hey I already told you about myself on the landing page👀</h2>
-      <button class="btn-forgotten" onclick="showPage('home')">you've forgotten, haven't you?</button>
-    </div>
-    <div class="thought-area">
-      <div class="bubble-dot" style="width:6px;height:6px;opacity:.5;"></div>
-      <div class="bubble-dot" style="width:9px;height:9px;opacity:.65;"></div>
-      <div class="thought-cloud"></div>
-    </div>
-  </div>
-  <footer class="site-footer">© 2026 Ojele. All rights reserved.</footer>
+
+<div class="about-container">
+
+<div class="about-hero">
+
+<div class="about-copy">
+
+<span class="about-tag">ABOUT ME</span>
+
+<h1 class="about-title">
+I help brands,
+startups, and creators
+<span>turn their ideas into memorable visual experiences</span>
+through animation,
+illustration & character design.
+</h1>
+
+</div>
+
+<div class="quote-card">
+<p>
+“Design is storytelling in visual form.
+If it doesn’t communicate,
+entertain, or stay with people,
+it isn’t finished yet.”
+</p>
+</div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<h2 class="section-title">Experience</h2>
+
+<div class="experience-grid">
+
+<div class="exp-card">
+Several years of experience in digital illustration and 2D animation
+</div>
+
+<div class="exp-card">
+Professional experience creating artwork and visual assets for Web3 and NFT projects
+</div>
+
+<div class="exp-card">
+Character design and visual development for original IPs and animated productions
+</div>
+
+<div class="exp-card">
+Animation production for social media content, marketing campaigns and digital brands
+</div>
+
+<div class="exp-card">
+Branding and visual identity development for startups and online communities
+</div>
+
+<div class="exp-card">
+Co-founder and creative contributor at Bean Studio
+</div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<h2 class="section-title">Services</h2>
+
+<div class="services-framework">
+
+<div class="service-center">
+OJELE
+</div>
+
+<div class="service-node top">
+<img src="ICON_URL">
+<span>Character Design</span>
+</div>
+
+<div class="service-node left">
+<img src="ICON_URL">
+<span>2D Illustration</span>
+</div>
+
+<div class="service-node right">
+<img src="ICON_URL">
+<span>Branding</span>
+</div>
+
+<div class="service-node bottom-left">
+<img src="ICON_URL">
+<span>2D Animation</span>
+</div>
+
+<div class="service-node bottom-right">
+<img src="ICON_URL">
+<span>NFT & Web3</span>
+</div>
+
+<div class="service-node bottom">
+<img src="ICON_URL">
+<span>Consulting</span>
+</div>
+
+</div>
+
+</div>
+
+<footer class="site-footer">
+© 2026 Ojele. All rights reserved.
+</footer>
+
 </div>
 
 <!-- CONTACT -->
