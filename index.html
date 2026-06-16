@@ -303,63 +303,59 @@ padding:20px 30px;
 border-radius:100px;
 font-weight:800;
 letter-spacing:.08em;
+
+.service-center{
+  animation:pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(212,134,106,.25)}
+  50%{box-shadow:0 0 0 14px rgba(212,134,106,0)}
+}
 }
 
 .service-node{
-position:absolute;
-background:#F6ECE5;
-padding:18px;
-border-radius:20px;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:10px;
-width:180px;
-transition:.3s;
-cursor:pointer;
+  position:absolute;
+  background:#F6ECE5;
+  padding:18px;
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  width:180px;
+  cursor:pointer;
+
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
 }
 
+/* base hover lift */
 .service-node:hover{
-transform:translateY(-6px);
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 18px 40px rgba(0,0,0,.12);
+  background:#FFF3EC;
 }
 
+/* icon pop */
 .service-node img{
-width:34px;
-height:34px;
+  width:34px;
+  height:34px;
+  transition:transform .3s ease;
 }
 
-.top{
-top:0;
-left:50%;
-transform:translateX(-50%);
+.service-node:hover img{
+  transform:rotate(-6deg) scale(1.1);
 }
 
-.left{
-top:50%;
-left:0;
-transform:translateY(-50%);
+/* label emphasis */
+.service-node span{
+  font-weight:700;
+  transition:letter-spacing .25s ease, color .25s ease;
 }
 
-.right{
-top:50%;
-right:0;
-transform:translateY(-50%);
-}
-
-.bottom-left{
-bottom:0;
-left:15%;
-}
-
-.bottom-right{
-bottom:0;
-right:15%;
-}
-
-.bottom{
-bottom:0;
-left:50%;
-transform:translateX(-50%);
+.service-node:hover span{
+  letter-spacing:.03em;
+  color:var(--salmon);
 }
 
 /* ══════════════════════ CONTACT ══════════════════════ */
@@ -876,6 +872,26 @@ showPage = function(name){
   oldShowPage(name);
   if(name==='about') animateAbout();
 }
+
+const nodes = document.querySelectorAll('.service-node');
+
+nodes.forEach(n=>{
+  n.addEventListener('mouseenter', ()=>{
+    nodes.forEach(x=>{
+      if(x!==n){
+        x.style.opacity = '0.35';
+        x.style.transform = 'scale(0.97)';
+      }
+    });
+  });
+
+  n.addEventListener('mouseleave', ()=>{
+    nodes.forEach(x=>{
+      x.style.opacity = '1';
+      x.style.transform = '';
+    });
+  });
+});
   
   
 /* ── CONTACT ── */
