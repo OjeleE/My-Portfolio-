@@ -215,6 +215,27 @@ font-style:italic;
 color:#D4866A;
 }
 
+.bean-link{
+  color:inherit;
+  font-weight:800;
+  text-decoration:none;
+  display:inline-block;
+  position:relative;
+  transition:transform .2s ease;
+}
+
+.bean-link:hover{
+  animation:beanPop .35s ease;
+  color:var(--salmon);
+}
+
+@keyframes beanPop{
+  0%{transform:translateY(0) scale(1)}
+  40%{transform:translateY(-6px) scale(1.05)}
+  100%{transform:translateY(0) scale(1)}
+}
+
+  
 .quote-card{
 background:#F5E7DD;
 padding:34px;
@@ -485,13 +506,15 @@ body::before{content:'';position:fixed;inset:0;
 
 <span class="about-tag">ABOUT ME</span>
 
-<h1 class="about-title">
-I help brands,
-startups, and creators
-<span>turn their ideas into memorable visual experiences</span>
-through animation,
-illustration & character design.
+<h1 class="about-hero-h1" id="aboutHeroText">
+I help brands, startups, and creators turn their ideas into memorable visual experiences through animation, illustration & character design
 </h1>
+
+<div class="about-through" id="aboutQuoteText">
+<em>
+“Design is storytelling in visual form. If it doesn’t communicate, entertain, or stay with people, it isn’t finished yet.”
+</em>
+</div>
 
 </div>
 
@@ -533,7 +556,7 @@ Branding and visual identity development for startups and online communities
 </div>
 
 <div class="exp-card">
-Co-founder and creative contributor at Bean Studio
+Co-founder and creative contributor at <a class="bean-link" href="#">Bean Studio</a>
 </div>
 
 </div>
@@ -667,7 +690,7 @@ document.querySelectorAll('.nav-links a,.mobile-menu a').forEach(a=>
   a.addEventListener('click',e=>e.preventDefault()));
 
 /* ── HOME ANIM ── */
-const BIO='Hello! I am a highly skilled 2D artist with years of experience. My expertise encompasses animation, character design, background design, illustrations, NFT art, and game art. I understand the importance of clear communication and collaboration to bring your ideas to life. I thrive on frequent and consistent feedback throughout the entire process, working closely with you to ensure that your imagination is transformed into reality.';
+const BIO='';
 function runHomeAnim(){
   const lines=document.querySelectorAll('.hero-title-line');
   const bio=document.getElementById('heroBio');
@@ -840,6 +863,21 @@ function closeLightbox(){
 function closeLightboxBg(e){if(e.target===document.getElementById('lightbox'))closeLightbox()}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
 
+function animateAbout(){
+  const t=document.getElementById('aboutHeroText');
+  const q=document.getElementById('aboutQuoteText');
+
+  if(t) setTimeout(()=>t.classList.add('vis'),150);
+  if(q) setTimeout(()=>q.classList.add('vis'),350);
+}
+
+const oldShowPage = showPage;
+showPage = function(name){
+  oldShowPage(name);
+  if(name==='about') animateAbout();
+}
+  
+  
 /* ── CONTACT ── */
 function submitForm(){
   const n=document.getElementById('fname').value.trim();
