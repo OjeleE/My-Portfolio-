@@ -169,8 +169,12 @@ body.light .site-footer{color:rgba(28,18,12,.3)}
 .lb-close:hover{opacity:1;transform:rotate(90deg)}
 
 /* ══ ABOUT ══ */
-#page-about{background:var(--bg);transition:background .4s}
-.about-page-inner{flex:1;display:flex;flex-direction:column}
+#page-about{background:var(--bg);transition:background .4s;
+  height:100vh;overflow-y:auto;scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;display:block}
+.about-page-inner{display:flex;flex-direction:column}
+.about-snap-section{scroll-snap-align:start;scroll-snap-stop:always;
+  min-height:calc(100vh - var(--nav-h));display:flex;flex-direction:column;justify-content:center}
 
 /* hero band — hover reveal bio */
 .about-hero-band{
@@ -241,18 +245,26 @@ body.light .about-through{color:rgba(28,18,12,.45)}
 }
 
 .about-quote-card{
-  background:var(--card-bg);border:1px solid rgba(212,134,106,.2);border-radius:4px;padding:36px 32px;
+  background:var(--card-bg);border-radius:4px;padding:36px 32px;
   position:relative;
   opacity:0;transform:translateY(16px);
-  transition:opacity .7s ease .15s,transform .7s ease .15s,background .4s;
+  transition:opacity .7s ease .15s,transform .7s ease .15s,background .4s,box-shadow .35s,transform .35s;
 }
 .about-quote-card.vis{opacity:1;transform:translateY(0)}
+.about-quote-card:hover{
+  background:rgba(212,134,106,.08);
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(0,0,0,.25);
+}
 .about-quote-card::before{content:'\201C';font-family:Georgia,serif;font-size:72px;line-height:.6;
-  color:var(--salmon);opacity:.2;position:absolute;top:18px;left:18px}
+  color:var(--salmon);opacity:.2;position:absolute;top:18px;left:18px;
+  transition:opacity .35s,transform .35s}
+.about-quote-card:hover::before{opacity:.35;transform:scale(1.08)}
 .about-quote-text{font-size:clamp(16px,1.7vw,21px);font-weight:700;font-style:italic;
   color:var(--cream);line-height:1.35;padding-top:24px;position:relative;z-index:1;transition:color .4s}
 .about-quote-text::after{content:'';display:block;width:32px;height:2px;
-  background:var(--salmon);margin-top:18px;opacity:.5}
+  background:var(--salmon);margin-top:18px;opacity:.5;transition:width .35s,opacity .35s}
+.about-quote-card:hover .about-quote-text::after{width:56px;opacity:.85}
 
 /* experience — NO table borders */
 .about-exp-band{padding:60px 64px;border-bottom:1px solid rgba(212,134,106,.08)}
@@ -308,6 +320,17 @@ body.light .svc-chip{color:rgba(28,18,12,.55);background:rgba(180,90,50,.06)}
 #page-about .site-footer{background:transparent;color:rgba(245,240,232,.18);
   border-top:1px solid rgba(212,134,106,.08)}
 body.light #page-about .site-footer{color:rgba(28,18,12,.25)}
+
+/* back to top */
+.about-back-to-top{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:32px 0 8px;cursor:pointer;
+  font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(212,134,106,.5);transition:color .25s,gap .25s;
+}
+.about-back-to-top:hover{color:var(--salmon);gap:12px}
+.about-back-to-top svg{transition:transform .25s}
+.about-back-to-top:hover svg{transform:translateY(-3px)}
 
 /* ══ CONTACT ══ */
 #page-contact{background:var(--peach)}
@@ -374,6 +397,9 @@ body.light #page-about .site-footer{color:rgba(28,18,12,.25)}
   .about-svc-band{padding:40px 24px}
   .exp-grid{grid-template-columns:1fr;gap:0}
   .contact-row{grid-template-columns:1fr}
+  /* mobile: let snap sections size to content instead of forcing full viewport height */
+  .about-snap-section{min-height:auto;scroll-snap-align:start}
+  .about-back-to-top{padding:24px 0 16px}
 }
 @media(max-width:480px){
   .masonry-wrap{columns:1;padding:10px}
@@ -451,6 +477,7 @@ body::before{content:'';position:fixed;inset:0;
   <div class="about-page-inner">
 
     <!-- HERO BAND -->
+    <div class="about-snap-section">
     <div class="about-hero-band">
       <div class="about-hero-left">
         <div class="about-tag">About Me</div>
@@ -478,8 +505,10 @@ body::before{content:'';position:fixed;inset:0;
         <p class="about-quote-text">"Design is storytelling in visual form. If it doesn't communicate, entertain, or stay with people, it isn't finished yet."</p>
       </div>
     </div>
+    </div>
 
     <!-- EXPERIENCE -->
+    <div class="about-snap-section">
     <div class="about-exp-band">
       <div class="band-label">Experience</div>
       <div class="exp-grid">
@@ -491,8 +520,10 @@ body::before{content:'';position:fixed;inset:0;
         <div class="exp-item"><span class="exp-num">06</span><span class="exp-text">Co-founder and creative contributor at <a href="https://beanstudio.xyz" target="_blank" class="bean-link">Bean Studio</a>, a Web3-focused creative studio</span></div>
       </div>
     </div>
+    </div>
 
     <!-- SERVICES -->
+    <div class="about-snap-section">
     <div class="about-svc-band">
       <div class="band-label">Services</div>
       <div class="svc-accordion">
@@ -559,6 +590,13 @@ body::before{content:'';position:fixed;inset:0;
           </div></div>
         </div>
       </div>
+    </div>
+    </div>
+
+    <!-- BACK TO TOP -->
+    <div class="about-back-to-top" onclick="scrollAboutToTop()">
+      <span>Back to top</span>
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
     </div>
 
   </div>
@@ -641,6 +679,7 @@ function showPage(name){
   const dl=document.getElementById('nav-'+name),ml=document.getElementById('mob-'+name);
   if(dl)dl.classList.add('active');if(ml)ml.classList.add('active');
   toggleMobileMenu(true);window.scrollTo(0,0);
+  if(name==='about'){const ap=document.getElementById('page-about');if(ap)ap.scrollTop=0}
   if(name==='works'&&!window._gbuilt){buildWorks();window._gbuilt=true}
   if(name==='home')runHomeAnim();
   if(name==='about')runAboutAnim();
@@ -681,6 +720,12 @@ function runAboutAnim(){
     el.classList.remove('vis');
     setTimeout(()=>el.classList.add('vis'),300+i*60);
   });
+}
+
+/* BACK TO TOP — scrolls the about page's own snap container back to start */
+function scrollAboutToTop(){
+  const container=document.getElementById('page-about');
+  if(container) container.scrollTo({top:0,behavior:'smooth'});
 }
 
 /* SERVICES ACCORDION */
