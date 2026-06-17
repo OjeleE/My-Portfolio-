@@ -115,6 +115,7 @@ body.light .site-footer{color:rgba(28,18,12,.3)}
 .hero-text-half{display:flex;flex-direction:column;justify-content:center;
   padding:60px 56px 60px 44px;background:var(--bg);transition:background .4s}
 .hero-titles{margin-bottom:36px}
+.hero-bio{margin-bottom:28px;min-height:1px}
 .hero-title-line{display:block;font-size:clamp(36px,4.5vw,70px);font-weight:800;
   line-height:1.05;color:var(--cream);position:relative;overflow:hidden;
   cursor:default;padding-bottom:2px;opacity:0;transform:translateY(24px);
@@ -199,25 +200,44 @@ body.light .about-through{color:rgba(28,18,12,.45)}
 .about-through.vis{opacity:1}
 .about-through strong{color:var(--peach);font-weight:800}
 
-/* hover bio — replaces the h1 text on hover */
-.about-hover-bio{
+/* hover the em text → entire heading swaps to a CTA, click goes to Contact */
+.about-hero-h1 em{
+  color:var(--salmon);font-style:italic;cursor:pointer;
+  transition:color .3s,letter-spacing .3s;
+  position:relative;
+}
+.about-hero-h1 em:hover{letter-spacing:.01em}
+
+.about-cta-swap{
   position:absolute;inset:0;
-  display:flex;flex-direction:column;justify-content:center;
+  display:flex;align-items:center;
   opacity:0;pointer-events:none;
-  transition:opacity .45s ease;
+  transition:opacity .4s ease;
+  cursor:pointer;
 }
-.about-hero-left:hover .about-hover-bio{opacity:1;pointer-events:auto}
-.about-hero-left:hover .about-hero-h1,
-.about-hero-left:hover .about-through{opacity:0}
-.about-hover-bio p{
-  font-size:clamp(14px,1.4vw,17px);font-weight:500;
-  color:rgba(245,240,232,.75);line-height:1.75;
-  animation:bioReveal .5s cubic-bezier(.22,1,.36,1) forwards;
+.about-hero-h1-wrap{position:relative}
+.about-hero-h1-wrap:has(em:hover) .about-hero-h1,
+.about-hero-h1-wrap:has(em:hover) .about-through{opacity:0}
+.about-hero-h1-wrap:has(em:hover) .about-cta-swap{opacity:1;pointer-events:auto}
+.about-cta-text{
+  font-size:clamp(34px,4.5vw,64px);font-weight:800;line-height:.98;
+  color:var(--salmon);
+  display:inline-flex;align-items:center;gap:14px;
 }
-body.light .about-hover-bio p{color:rgba(28,18,12,.7)}
-@keyframes bioReveal{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
+.about-cta-text svg{
+  width:32px;height:32px;flex-shrink:0;
+  transition:transform .3s;
+}
+.about-cta-swap:hover .about-cta-text svg{transform:translateX(6px)}
+
+/* mobile fallback: a tappable button instead of hover */
+.about-mobile-cta{
+  display:none;align-items:center;gap:8px;
+  background:var(--salmon);color:#fff;
+  font-family:var(--font);font-size:13px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:13px 22px;border:none;border-radius:14px;cursor:pointer;
+  margin-top:18px;width:fit-content;
 }
 
 .about-quote-card{
@@ -346,9 +366,10 @@ body.light #page-about .site-footer{color:rgba(28,18,12,.25)}
   .btn-cta{align-self:flex-start}
   .masonry-wrap{columns:2;column-gap:10px;padding:16px}
   .about-hero-band{grid-template-columns:1fr;gap:32px;padding:48px 24px 40px}
-  .about-hover-bio{position:static;opacity:1;pointer-events:auto;margin-top:16px}
-  .about-hero-left:hover .about-hero-h1{opacity:1}
-  .about-hero-left:hover .about-through{opacity:1}
+  .about-cta-swap{display:none}
+  .about-hero-h1-wrap:has(em:hover) .about-hero-h1,
+  .about-hero-h1-wrap:has(em:hover) .about-through{opacity:1}
+  .about-mobile-cta{display:flex!important}
   .about-exp-band{padding:40px 24px}
   .about-svc-band{padding:40px 24px}
   .exp-grid{grid-template-columns:1fr;gap:0}
@@ -431,15 +452,27 @@ body::before{content:'';position:fixed;inset:0;
 
     <!-- HERO BAND -->
     <div class="about-hero-band">
-      <div>
+      <div class="about-hero-left">
         <div class="about-tag">About Me</div>
-        <h1 class="about-hero-h1" id="aboutH1">
-          I help brands, startups, and creators
-          <em>turn their ideas into memorable visual experiences</em>
-        </h1>
-        <p class="about-through" id="aboutThrough">
-          through <strong>animation</strong>, <strong>illustration</strong> &amp; <strong>character design</strong>
-        </p>
+        <div class="about-hero-h1-wrap">
+          <h1 class="about-hero-h1" id="aboutH1">
+            I help brands, startups, and creators
+            <em>turn their ideas into memorable visual experiences</em>
+          </h1>
+          <p class="about-through" id="aboutThrough">
+            through <strong>animation</strong>, <strong>illustration</strong> &amp; <strong>character design</strong>
+          </p>
+          <div class="about-cta-swap" onclick="showPage('contact')">
+            <span class="about-cta-text">
+              Build with me today
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+        <button class="about-mobile-cta" onclick="showPage('contact')">
+          <span>Build With Me Today</span>
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
       </div>
       <div class="about-quote-card" id="aboutQuote">
         <p class="about-quote-text">"Design is storytelling in visual form. If it doesn't communicate, entertain, or stay with people, it isn't finished yet."</p>
@@ -585,6 +618,13 @@ if(window.matchMedia('(hover:hover)and(pointer:fine)').matches){
   });
 }
 
+/* THEME TOGGLE */
+function toggleTheme(){
+  const isLight=document.body.classList.toggle('light');
+  const knob=document.querySelector('.theme-btn-knob');
+  knob.textContent=isLight?'🌙':'☀️';
+}
+
 /* MOBILE MENU */
 function toggleMobileMenu(fc){
   const b=document.getElementById('hamburger'),m=document.getElementById('mobileMenu');
@@ -714,7 +754,7 @@ const FALLBACK_FILES=[
 ];
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
 const thumb=id=>`https://drive.google.com/thumbnail?id=${id}&sz=w800`;
-const driveLink=id=>`https://drive.google.com/file/d/${id}/view`;
+const drivePreview=id=>`https://drive.google.com/file/d/${id}/preview`;
 
 function renderItem(grid,f){
   const item=document.createElement('div');item.className='g-item';
@@ -731,7 +771,7 @@ function renderItem(grid,f){
     const btn=document.createElement('div');btn.className='vid-play-btn';
     btn.innerHTML='<svg width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="26" r="26" fill="rgba(0,0,0,.45)"/><path d="M21 18l14 8-14 8V18z" fill="white"/></svg>';
     wrap.appendChild(img);wrap.appendChild(btn);item.appendChild(wrap);
-    item.onclick=()=>window.open(driveLink(f.id),'_blank');
+    item.onclick=()=>openVideoInline(f.id,f.name||'');
   }
   grid.appendChild(item);
 }
@@ -739,31 +779,62 @@ function renderItem(grid,f){
 async function buildWorks(){
   const grid=document.getElementById('worksGrid');
   grid.innerHTML='<p style="padding:60px;text-align:center;color:rgba(245,240,232,.3);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--font);font-weight:700;column-span:all">Loading...</p>';
-  try{
-    const url=`https://www.googleapis.com/drive/v3/files?q=%27${FOLDER_ID}%27+in+parents+and+trashed%3Dfalse&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=100`;
-    const res=await fetch(url);
-    if(!res.ok)throw new Error(res.status);
-    const data=await res.json();
-    const files=(data.files||[]).filter(f=>f.mimeType.startsWith('image/')||f.mimeType.startsWith('video/'));
-    if(!files.length)throw new Error('empty');
-    grid.innerHTML='';
-    const prioMap=new Map(PRIORITY_IDS.map((id,i)=>[id,i]));
-    const prio=new Array(PRIORITY_IDS.length);const rest=[];
-    files.forEach(f=>{prioMap.has(f.id)?prio[prioMap.get(f.id)]=f:rest.push(f)});
-    [...prio.filter(Boolean),...shuffle(rest)].forEach(f=>renderItem(grid,f));
-  }catch(err){
-    console.warn('API failed, using fallback:',err.message);
+
+  const renderFallback=(reason)=>{
+    if(reason)console.warn('[Works] Falling back to local list — reason:',reason);
     grid.innerHTML='';
     const pf=PRIORITY_IDS.map(id=>FALLBACK_FILES.find(f=>f.id===id)).filter(Boolean);
     const rf=shuffle(FALLBACK_FILES.filter(f=>!PRIORITY_IDS.includes(f.id)));
     [...pf,...rf].forEach(f=>renderItem(grid,{...f,mimeType:f.type==='video'?'video/mp4':'image/jpeg'}));
+  };
+
+  let res;
+  try{
+    const url=`https://www.googleapis.com/drive/v3/files?q=%27${FOLDER_ID}%27+in+parents+and+trashed%3Dfalse&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=100`;
+    res=await fetch(url);
+  }catch(networkErr){
+    // fetch() itself threw — almost always a referrer-restricted API key,
+    // the Drive API not being enabled on the key's project, or no internet.
+    renderFallback('Network/CORS block before response — check API key referrer restrictions & that Drive API is enabled. Raw: '+networkErr.message);
+    return;
   }
+
+  if(!res.ok){
+    // Got a real response from Google, but it's an error — read the actual reason.
+    let detail='HTTP '+res.status;
+    try{
+      const errBody=await res.json();
+      detail=errBody?.error?.message||detail;
+    }catch{}
+    renderFallback(detail);
+    return;
+  }
+
+  let data;
+  try{ data=await res.json() }
+  catch(parseErr){ renderFallback('Bad JSON from API: '+parseErr.message); return }
+
+  const files=(data.files||[]).filter(f=>f.mimeType.startsWith('image/')||f.mimeType.startsWith('video/'));
+  if(!files.length){ renderFallback('API returned 0 usable files — check folder sharing is "Anyone with the link"'); return }
+
+  grid.innerHTML='';
+  const prioMap=new Map(PRIORITY_IDS.map((id,i)=>[id,i]));
+  const prio=new Array(PRIORITY_IDS.length);const rest=[];
+  files.forEach(f=>{prioMap.has(f.id)?prio[prioMap.get(f.id)]=f:rest.push(f)});
+  [...prio.filter(Boolean),...shuffle(rest)].forEach(f=>renderItem(grid,f));
 }
 
 /* LIGHTBOX */
 function openImg(src,label){
   document.getElementById('lbInner').innerHTML=
     `<button class="lb-close" onclick="closeLightbox()">✕</button><img src="${src}" alt="${label}"/>`;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function openVideoInline(id,label){
+  document.getElementById('lbInner').innerHTML=
+    `<button class="lb-close" onclick="closeLightbox()">✕</button>
+     <div class="lb-vwrap"><iframe src="${drivePreview(id)}" allow="autoplay" allowfullscreen title="${label}"></iframe></div>`;
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow='hidden';
 }
