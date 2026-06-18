@@ -22,7 +22,11 @@ body.light{
 }
 html,body{height:100%;margin:0;padding:0}
 body{font-family:var(--font);background:var(--bg);color:var(--cream);overflow-x:hidden;
-  transition:background .4s ease,color .4s ease}
+  transition:background .4s,color .4s}
+
+/* hide ALL scrollbars site-wide */
+*{scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{display:none}
 
 /* CURSOR */
 .cursor,.cursor-ring{display:none;pointer-events:none}
@@ -41,11 +45,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);
   border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;
   padding:0 40px;z-index:9000;transition:background .4s}
-body.light nav{background:rgba(240,235,227,.92)}
+body.light nav{background:rgba(240,235,227,.94)}
 .nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer;flex-shrink:0}
 .nav-logo{width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0}
 .nav-logo img{width:100%;height:100%;object-fit:cover;display:block}
-.nav-name{font-size:15px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);transition:color .4s}
+.nav-name{font-size:15px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cream);transition:color .4s}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
   color:var(--mid);text-decoration:none;position:relative;cursor:pointer;transition:color .25s}
@@ -53,25 +58,19 @@ body.light nav{background:rgba(240,235,227,.92)}
   background:var(--salmon);transition:width .3s}
 .nav-links a:hover,.nav-links a.active{color:var(--salmon)}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%}
-
-/* THEME TOGGLE */
-.theme-btn{
-  width:44px;height:24px;border-radius:100px;border:none;cursor:pointer;
-  background:var(--card-bg);border:1.5px solid var(--border);
-  position:relative;flex-shrink:0;
-  transition:background .4s,border-color .4s;
-}
-.theme-btn-knob{
-  position:absolute;top:2px;left:2px;
-  width:16px;height:16px;border-radius:50%;
-  background:var(--salmon);
-  transition:transform .35s cubic-bezier(.22,1,.36,1),background .4s;
-  display:flex;align-items:center;justify-content:center;
-  font-size:9px;line-height:1;
-}
-body.light .theme-btn-knob{transform:translateX(20px)}
 .nav-right{display:flex;align-items:center;gap:14px}
 
+/* THEME TOGGLE */
+.theme-btn{width:44px;height:24px;border-radius:100px;cursor:pointer;
+  background:var(--card-bg);border:1.5px solid var(--border);
+  position:relative;flex-shrink:0;transition:background .4s,border-color .4s}
+.theme-btn-knob{position:absolute;top:2px;left:2px;width:16px;height:16px;
+  border-radius:50%;background:var(--salmon);
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+  display:flex;align-items:center;justify-content:center;font-size:9px;line-height:1}
+body.light .theme-btn-knob{transform:translateX(20px)}
+
+/* HAMBURGER */
 .nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;
   width:38px;height:38px;background:none;border:none;cursor:pointer;padding:6px;flex-shrink:0}
 .nav-hamburger span{display:block;width:21px;height:2px;background:var(--cream);border-radius:2px;
@@ -100,8 +99,7 @@ body.light .mobile-menu{background:rgba(240,235,227,.97)}
 /* FOOTER */
 .site-footer{margin-top:auto;padding:16px;text-align:center;
   font-size:9px;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(245,240,232,.22);border-top:1px solid var(--border);font-weight:600;
-  transition:color .4s}
+  color:rgba(245,240,232,.22);border-top:1px solid var(--border);font-weight:600;transition:color .4s}
 body.light .site-footer{color:rgba(28,18,12,.3)}
 
 /* ══ HOME ══ */
@@ -111,11 +109,11 @@ body.light .site-footer{color:rgba(28,18,12,.3)}
   display:block;transition:transform 8s ease}
 .hero-image-half:hover img{transform:scale(1.04)}
 .hero-image-half::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(to right,transparent 70%,var(--bg) 100%);pointer-events:none;transition:background .4s}
+  background:linear-gradient(to right,transparent 70%,var(--bg) 100%);
+  pointer-events:none;transition:background .4s}
 .hero-text-half{display:flex;flex-direction:column;justify-content:center;
   padding:60px 56px 60px 44px;background:var(--bg);transition:background .4s}
-.hero-titles{margin-bottom:36px}
-.hero-bio{margin-bottom:28px;min-height:1px}
+.hero-titles{margin-bottom:44px}
 .hero-title-line{display:block;font-size:clamp(36px,4.5vw,70px);font-weight:800;
   line-height:1.05;color:var(--cream);position:relative;overflow:hidden;
   cursor:default;padding-bottom:2px;opacity:0;transform:translateY(24px);
@@ -126,7 +124,6 @@ body.light .site-footer{color:rgba(28,18,12,.3)}
   color:var(--peach);clip-path:inset(0 100% 0 0);transition:clip-path .4s ease}
 .hero-title-line:hover{color:var(--salmon);letter-spacing:.02em}
 .hero-title-line:hover::before{clip-path:inset(0 0% 0 0)}
-/* no bio on home — removed */
 .btn-cta{display:inline-flex;align-items:center;gap:7px;background:var(--salmon);color:#fff;
   font-family:var(--font);font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
   padding:14px 22px;border:none;cursor:pointer;border-radius:14px;
@@ -147,11 +144,11 @@ body.light .site-footer{color:rgba(28,18,12,.3)}
 .masonry-wrap .g-item img{display:block;width:100%;height:auto;
   transition:transform .45s ease;vertical-align:bottom}
 .masonry-wrap .g-item:hover img{transform:scale(1.05)}
-.vid-thumb-wrap{position:relative;cursor:pointer}
+.vid-thumb-wrap{position:relative}
 .vid-thumb-wrap img{display:block;width:100%;height:auto}
 .vid-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.28);transition:background .3s}
-.vid-thumb-wrap:hover .vid-play-btn{background:rgba(0,0,0,.48)}
+  background:rgba(0,0,0,.25);transition:background .3s}
+.masonry-wrap .g-item:hover .vid-play-btn{background:rgba(0,0,0,.45)}
 #page-works .site-footer{background:#0a0805;color:rgba(245,240,232,.18);
   border-top:1px solid rgba(245,240,232,.08)}
 
@@ -162,6 +159,7 @@ body.light .site-footer{color:rgba(28,18,12,.3)}
 .lb-inner{position:relative;max-width:min(960px,95vw);width:100%}
 .lb-inner img{width:100%;height:auto;max-height:90vh;object-fit:contain;display:block;border-radius:2px}
 .lb-vwrap{position:relative;width:100%;padding-bottom:56.25%;height:0}
+.lb-vwrap video{position:absolute;inset:0;width:100%;height:100%;border-radius:2px;background:#000}
 .lb-vwrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:2px}
 .lb-close{position:absolute;top:-42px;right:0;background:none;border:none;
   color:var(--cream);font-size:24px;cursor:pointer;opacity:.75;padding:4px 8px;
@@ -169,141 +167,134 @@ body.light .site-footer{color:rgba(28,18,12,.3)}
 .lb-close:hover{opacity:1;transform:rotate(90deg)}
 
 /* ══ ABOUT ══ */
-#page-about{background:var(--bg);transition:background .4s;
-  height:100vh;overflow-y:auto;scroll-snap-type:y mandatory;
-  scroll-behavior:smooth;display:block}
-.about-page-inner{display:flex;flex-direction:column}
-.about-snap-section{scroll-snap-align:start;scroll-snap-stop:always;
-  min-height:calc(100vh - var(--nav-h));display:flex;flex-direction:column;justify-content:center}
+/* About is its own scroll container — separate from body scroll */
+#page-about{
+  background:var(--bg);transition:background .4s;
+  /* Override .page defaults for scroll container */
+  display:none;flex-direction:column;
+  height:100vh;min-height:unset;
+  overflow-y:scroll;overflow-x:hidden;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+  /* padding-top handled per snap-section instead of here */
+  padding-top:0;
+  animation:pageFadeIn .4s ease forwards;
+}
+#page-about.active{display:block}
 
-/* hero band — hover reveal bio */
+.about-snap-section{
+  scroll-snap-align:start;scroll-snap-stop:always;
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding-top:var(--nav-h);
+}
+
+/* hero band */
 .about-hero-band{
   display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;
-  padding:80px 64px 72px;border-bottom:1px solid rgba(212,134,106,.1);
-  position:relative;overflow:hidden;
+  padding:40px 64px;position:relative;overflow:hidden;
 }
-.about-hero-band::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 55% 70% at 0% 60%,rgba(212,134,106,.06) 0%,transparent 65%);
-}
-.about-tag{font-size:10px;font-weight:700;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--salmon);margin-bottom:18px;opacity:.75}
-
-/* hero left: titles and bio stack — bio hidden until hover */
+.about-hero-band::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 70% at 0% 60%,rgba(212,134,106,.06) 0%,transparent 65%)}
+.about-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--salmon);margin-bottom:18px;opacity:.75}
 .about-hero-left{position:relative}
-.about-hero-h1{font-size:clamp(34px,4.5vw,64px);font-weight:800;line-height:.98;
-  color:var(--cream);margin-bottom:20px;
+
+/* fixed-height wrapper so CTA overlay sits exactly over the heading */
+.about-hero-h1-wrap{position:relative;min-height:220px}
+.about-hero-h1{font-size:clamp(30px,4vw,58px);font-weight:800;line-height:1.05;
+  color:var(--cream);margin-bottom:18px;
   opacity:0;transform:translateY(28px);
-  transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1),
-    color .3s,letter-spacing .3s}
+  transition:opacity .5s ease,transform .5s ease}
 .about-hero-h1.vis{opacity:1;transform:translateY(0)}
-.about-hero-h1 em{color:var(--salmon);font-style:italic}
+.about-hero-h1 em{color:var(--salmon);font-style:italic;cursor:pointer}
 .about-through{font-size:16px;font-weight:600;color:rgba(245,240,232,.42);line-height:1.5;
-  opacity:0;transition:opacity .7s ease .3s}
+  opacity:0;transition:opacity .5s ease .25s}
 body.light .about-through{color:rgba(28,18,12,.45)}
 .about-through.vis{opacity:1}
 .about-through strong{color:var(--peach);font-weight:800}
 
-/* hover the em text → entire heading swaps to a CTA, click goes to Contact */
-.about-hero-h1 em{
-  color:var(--salmon);font-style:italic;cursor:pointer;
-  transition:color .3s,letter-spacing .3s;
-  position:relative;
-}
-.about-hero-h1 em:hover{letter-spacing:.01em}
-
+/* CTA swap — JS-toggled via .show class */
 .about-cta-swap{
-  position:absolute;inset:0;
+  position:absolute;top:0;left:0;right:0;bottom:0;
   display:flex;align-items:center;
   opacity:0;pointer-events:none;
-  transition:opacity .4s ease;
-  cursor:pointer;
+  transition:opacity .35s ease;cursor:pointer;
 }
-.about-hero-h1-wrap{position:relative}
-.about-hero-h1-wrap:has(em:hover) .about-hero-h1,
-.about-hero-h1-wrap:has(em:hover) .about-through{opacity:0}
-.about-hero-h1-wrap:has(em:hover) .about-cta-swap{opacity:1;pointer-events:auto}
-.about-cta-text{
-  font-size:clamp(34px,4.5vw,64px);font-weight:800;line-height:.98;
-  color:var(--salmon);
-  display:inline-flex;align-items:center;gap:14px;
-}
-.about-cta-text svg{
-  width:32px;height:32px;flex-shrink:0;
-  transition:transform .3s;
-}
-.about-cta-swap:hover .about-cta-text svg{transform:translateX(6px)}
+.about-cta-swap.show{opacity:1;pointer-events:auto}
+.about-hero-h1-wrap.swapped .about-hero-h1{opacity:0;transition:opacity .25s}
+.about-hero-h1-wrap.swapped .about-through{opacity:0;transition:opacity .25s}
+.about-cta-text{font-size:clamp(30px,4vw,58px);font-weight:800;line-height:1.05;
+  color:var(--salmon);display:inline-flex;align-items:center;gap:14px}
+.about-cta-text svg{width:28px;height:28px;flex-shrink:0;transition:transform .3s}
+.about-cta-swap:hover .about-cta-text svg{transform:translateX(8px)}
 
-/* mobile fallback: a tappable button instead of hover */
-.about-mobile-cta{
-  display:none;align-items:center;gap:8px;
-  background:var(--salmon);color:#fff;
-  font-family:var(--font);font-size:13px;font-weight:800;
-  letter-spacing:.1em;text-transform:uppercase;
+/* mobile CTA */
+.about-mobile-cta{display:none;align-items:center;gap:8px;
+  background:var(--salmon);color:#fff;font-family:var(--font);
+  font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
   padding:13px 22px;border:none;border-radius:14px;cursor:pointer;
-  margin-top:18px;width:fit-content;
-}
+  margin-top:20px;width:fit-content}
 
-.about-quote-card{
-  background:var(--card-bg);border-radius:4px;padding:36px 32px;
-  position:relative;
-  opacity:0;transform:translateY(16px);
-  transition:opacity .7s ease .15s,transform .7s ease .15s,background .4s,box-shadow .35s,transform .35s;
-}
+/* quote card — NO border */
+.about-quote-card{background:var(--card-bg);border-radius:4px;padding:36px 32px;
+  position:relative;opacity:0;transform:translateY(16px);
+  transition:opacity .7s ease .15s,transform .35s ease,background .3s,box-shadow .3s;
+  cursor:default}
 .about-quote-card.vis{opacity:1;transform:translateY(0)}
-.about-quote-card:hover{
-  background:rgba(212,134,106,.08);
-  transform:translateY(-4px);
-  box-shadow:0 16px 40px rgba(0,0,0,.25);
-}
-.about-quote-card::before{content:'\201C';font-family:Georgia,serif;font-size:72px;line-height:.6;
-  color:var(--salmon);opacity:.2;position:absolute;top:18px;left:18px;
+.about-quote-card:hover{background:rgba(212,134,106,.1);
+  transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.about-quote-card::before{content:'\201C';font-family:Georgia,serif;font-size:72px;
+  line-height:.6;color:var(--salmon);opacity:.2;position:absolute;top:18px;left:18px;
   transition:opacity .35s,transform .35s}
 .about-quote-card:hover::before{opacity:.35;transform:scale(1.08)}
-.about-quote-text{font-size:clamp(16px,1.7vw,21px);font-weight:700;font-style:italic;
-  color:var(--cream);line-height:1.35;padding-top:24px;position:relative;z-index:1;transition:color .4s}
+.about-quote-text{font-size:clamp(15px,1.6vw,20px);font-weight:700;font-style:italic;
+  color:var(--cream);line-height:1.4;padding-top:24px;position:relative;z-index:1;
+  transition:color .4s}
 .about-quote-text::after{content:'';display:block;width:32px;height:2px;
   background:var(--salmon);margin-top:18px;opacity:.5;transition:width .35s,opacity .35s}
 .about-quote-card:hover .about-quote-text::after{width:56px;opacity:.85}
 
-/* experience — NO table borders */
-.about-exp-band{padding:60px 64px;border-bottom:1px solid rgba(212,134,106,.08)}
+/* experience */
+.about-exp-band{padding:40px 64px 48px}
 .band-label{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--salmon);margin-bottom:32px;opacity:.75;
+  color:var(--salmon);margin-bottom:28px;opacity:.75;
   display:flex;align-items:center;gap:14px}
 .band-label::after{content:'';flex:1;height:1px;background:rgba(212,134,106,.1)}
-.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 32px}
-.exp-item{display:flex;gap:0;align-items:flex-start;
-  padding:14px 0;
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+.exp-item{display:flex;align-items:flex-start;padding:13px 0;
+  border-bottom:1px solid rgba(212,134,106,.06);
   opacity:0;transform:translateX(-6px);
-  transition:opacity .5s ease,transform .5s ease;cursor:default}
+  transition:opacity .5s ease,transform .5s ease}
+.exp-item:last-child,.exp-item:nth-last-child(2):not(:last-child){border-bottom:none}
 .exp-item.vis{opacity:1;transform:translateX(0)}
 .exp-num{font-size:10px;font-weight:800;color:rgba(212,134,106,.35);
   letter-spacing:.04em;margin-right:14px;padding-top:3px;flex-shrink:0;min-width:18px}
-.exp-text{font-size:14px;font-weight:600;color:rgba(245,240,232,.7);line-height:1.55;transition:color .4s}
+.exp-text{font-size:14px;font-weight:600;color:rgba(245,240,232,.7);line-height:1.55;
+  transition:color .4s}
 body.light .exp-text{color:rgba(28,18,12,.65)}
 .exp-text a.bean-link{color:var(--salmon);text-decoration:none;font-weight:800;
   display:inline-block;border-bottom:1px solid rgba(212,134,106,.3);transition:color .2s}
 .exp-text a.bean-link:hover{color:var(--peach);border-color:var(--peach);animation:beanHop .4s ease}
 @keyframes beanHop{0%{transform:translateY(0)}35%{transform:translateY(-5px)}65%{transform:translateY(-2px)}100%{transform:translateY(0)}}
 
-/* services accordion — NO outer border */
-.about-svc-band{padding:60px 64px}
-.svc-accordion{display:flex;flex-direction:column;gap:0}
+/* services */
+.about-svc-band{padding:40px 64px 32px}
+.svc-accordion{display:flex;flex-direction:column}
 .svc-row{overflow:hidden;border-bottom:1px solid rgba(212,134,106,.08);
   opacity:0;transform:translateY(5px);transition:opacity .4s ease,transform .4s ease}
 .svc-row:last-child{border-bottom:none}
 .svc-row.vis{opacity:1;transform:translateY(0)}
 .svc-header{display:flex;align-items:center;justify-content:space-between;
   padding:18px 0;cursor:pointer;transition:opacity .2s;user-select:none}
-.svc-header:hover{opacity:.8}
+.svc-header:hover{opacity:.75}
 .svc-header-left{display:flex;align-items:center;gap:14px}
 .svc-num{font-size:10px;font-weight:800;color:rgba(212,134,106,.3);
   letter-spacing:.06em;min-width:22px}
 .svc-title{font-size:16px;font-weight:800;color:var(--cream);
   letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
 .svc-arrow{font-size:20px;color:rgba(212,134,106,.4);
-  transition:transform .35s ease,color .2s;flex-shrink:0;line-height:1}
+  transition:transform .35s,color .2s;flex-shrink:0;line-height:1}
 .svc-row.open .svc-arrow{transform:rotate(45deg);color:var(--salmon)}
 .svc-row.open .svc-title{color:var(--salmon)}
 .svc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
@@ -316,21 +307,18 @@ body.light .exp-text{color:rgba(28,18,12,.65)}
 body.light .svc-chip{color:rgba(28,18,12,.55);background:rgba(180,90,50,.06)}
 .svc-chip:hover{background:rgba(212,134,106,.14);color:var(--peach);border-color:rgba(212,134,106,.28)}
 
-/* about footer */
-#page-about .site-footer{background:transparent;color:rgba(245,240,232,.18);
-  border-top:1px solid rgba(212,134,106,.08)}
-body.light #page-about .site-footer{color:rgba(28,18,12,.25)}
-
 /* back to top */
-.about-back-to-top{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:32px 0 8px;cursor:pointer;
+.about-back-to-top{display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:28px 0 8px;cursor:pointer;
   font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(212,134,106,.5);transition:color .25s,gap .25s;
-}
+  color:rgba(212,134,106,.4);transition:color .25s,gap .25s}
 .about-back-to-top:hover{color:var(--salmon);gap:12px}
 .about-back-to-top svg{transition:transform .25s}
 .about-back-to-top:hover svg{transform:translateY(-3px)}
+
+#page-about .site-footer{background:transparent;color:rgba(245,240,232,.18);
+  border-top:1px solid rgba(212,134,106,.08);padding:14px}
+body.light #page-about .site-footer{color:rgba(28,18,12,.25)}
 
 /* ══ CONTACT ══ */
 #page-contact{background:var(--peach)}
@@ -361,8 +349,8 @@ body.light #page-about .site-footer{color:rgba(28,18,12,.25)}
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(192,112,80,.38)}
 .btn-submit:hover::before{transform:translateX(0)}
 .btn-submit span{position:relative;z-index:1}
-.form-status{text-align:center;font-size:12px;color:var(--bg);font-style:italic;
-  min-height:16px;font-weight:600;margin-top:4px}
+.form-status{text-align:center;font-size:12px;color:var(--bg);
+  font-style:italic;min-height:16px;font-weight:600;margin-top:4px}
 .socials-row{display:flex;gap:18px;align-items:center;justify-content:center;margin-top:28px}
 .social-icon{display:flex;align-items:center;justify-content:center;
   width:36px;height:36px;border-radius:50%;
@@ -374,7 +362,7 @@ body.light #page-about .site-footer{color:rgba(28,18,12,.25)}
 #page-contact .site-footer{background:rgba(0,0,0,.1);color:rgba(14,11,8,.32);
   border-top:1px solid rgba(14,11,8,.1)}
 
-/* RESPONSIVE */
+/* ══ RESPONSIVE ══ */
 @media(max-width:900px){.masonry-wrap{columns:2}}
 @media(max-width:768px){
   :root{--nav-h:58px}
@@ -388,24 +376,22 @@ body.light #page-about .site-footer{color:rgba(28,18,12,.25)}
   .hero-title-line{font-size:clamp(28px,8vw,46px)}
   .btn-cta{align-self:flex-start}
   .masonry-wrap{columns:2;column-gap:10px;padding:16px}
-  .about-hero-band{grid-template-columns:1fr;gap:32px;padding:48px 24px 40px}
-  .about-cta-swap{display:none}
-  .about-hero-h1-wrap:has(em:hover) .about-hero-h1,
-  .about-hero-h1-wrap:has(em:hover) .about-through{opacity:1}
+  .about-snap-section{min-height:auto;padding-bottom:32px}
+  .about-hero-band{grid-template-columns:1fr;gap:28px;padding:24px}
+  .about-hero-h1-wrap{min-height:auto}
+  .about-cta-swap{display:none!important}
   .about-mobile-cta{display:flex!important}
-  .about-exp-band{padding:40px 24px}
-  .about-svc-band{padding:40px 24px}
+  .about-exp-band{padding:32px 24px}
+  .about-svc-band{padding:32px 24px 24px}
   .exp-grid{grid-template-columns:1fr;gap:0}
   .contact-row{grid-template-columns:1fr}
-  /* mobile: let snap sections size to content instead of forcing full viewport height */
-  .about-snap-section{min-height:auto;scroll-snap-align:start}
-  .about-back-to-top{padding:24px 0 16px}
 }
 @media(max-width:480px){
   .masonry-wrap{columns:1;padding:10px}
   .hero-title-line{font-size:clamp(26px,9vw,38px)}
 }
 
+/* grain texture overlay */
 body::before{content:'';position:fixed;inset:0;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events:none;z-index:7000;opacity:.25}
@@ -418,7 +404,9 @@ body::before{content:'';position:fixed;inset:0;
 <!-- NAV -->
 <nav>
   <div class="nav-brand" onclick="showPage('home')">
-    <div class="nav-logo"><img src="https://drive.google.com/thumbnail?id=14FN3nHPsQIqo85mxMkZ6aM2o0W4aObyb&sz=w64" alt="Ojele"/></div>
+    <div class="nav-logo">
+      <img src="https://res.cloudinary.com/dvxzjzemg/image/upload/work%20samples/LOGO_sl2rh4" alt="Ojele"/>
+    </div>
     <span class="nav-name">Ojele's Portfolio</span>
   </div>
   <ul class="nav-links">
@@ -429,7 +417,7 @@ body::before{content:'';position:fixed;inset:0;
   </ul>
   <div class="nav-right">
     <button class="theme-btn" onclick="toggleTheme()" title="Toggle light/dark">
-      <div class="theme-btn-knob">☀️</div>
+      <div class="theme-btn-knob" id="themeKnob">☀️</div>
     </button>
     <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
@@ -447,7 +435,7 @@ body::before{content:'';position:fixed;inset:0;
 <div id="page-home" class="page active">
   <section class="hero">
     <div class="hero-image-half">
-      <img src="https://drive.google.com/thumbnail?id=1TqCEa05xOoIBeFUkZs0ub756ckVnDL59&sz=w1600" alt="Cityscape"/>
+      <img src="https://res.cloudinary.com/dvxzjzemg/image/upload/work%20samples/HERO_aasguo" alt="Cityscape"/>
     </div>
     <div class="hero-text-half">
       <div class="hero-titles">
@@ -456,7 +444,6 @@ body::before{content:'';position:fixed;inset:0;
         <span class="hero-title-line" data-text="2D Illustrator">2D Illustrator</span>
         <span class="hero-title-line" data-text="Artistic Freelancer">Artistic Freelancer</span>
       </div>
-      <p class="hero-bio" id="heroBio"></p>
       <button class="btn-cta" id="heroBtn" onclick="showPage('works')">
         <span>View Portfolio</span>
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -472,131 +459,73 @@ body::before{content:'';position:fixed;inset:0;
   <footer class="site-footer">© 2026 Ojele. All rights reserved.</footer>
 </div>
 
-<!-- ABOUT -->
+<!-- ABOUT — own scroll container -->
 <div id="page-about" class="page">
   <div class="about-page-inner">
 
-    <!-- HERO BAND -->
+    <!-- SNAP 1: HERO -->
     <div class="about-snap-section">
-    <div class="about-hero-band">
-      <div class="about-hero-left">
-        <div class="about-tag">About Me</div>
-        <div class="about-hero-h1-wrap">
-          <h1 class="about-hero-h1" id="aboutH1">
-            I help brands, startups, and creators
-            <em>turn their ideas into memorable visual experiences</em>
-          </h1>
-          <p class="about-through" id="aboutThrough">
-            through <strong>animation</strong>, <strong>illustration</strong> &amp; <strong>character design</strong>
-          </p>
-          <div class="about-cta-swap" onclick="showPage('contact')">
-            <span class="about-cta-text">
-              Build with me today
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
+      <div class="about-hero-band">
+        <div class="about-hero-left">
+          <div class="about-tag">About Me</div>
+          <div class="about-hero-h1-wrap" id="aboutH1Wrap">
+            <h1 class="about-hero-h1" id="aboutH1">
+              I help brands, startups, and creators
+              <em id="aboutEm">turn their ideas into memorable visual experiences</em>
+            </h1>
+            <p class="about-through" id="aboutThrough">
+              through <strong>animation</strong>, <strong>illustration</strong> &amp; <strong>character design</strong>
+            </p>
+            <div class="about-cta-swap" id="aboutCtaSwap" onclick="showPage('contact')">
+              <span class="about-cta-text">
+                Build with me today
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
           </div>
+          <button class="about-mobile-cta" onclick="showPage('contact')">
+            <span>Build With Me Today</span>
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </div>
-        <button class="about-mobile-cta" onclick="showPage('contact')">
-          <span>Build With Me Today</span>
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
+        <div class="about-quote-card" id="aboutQuote">
+          <p class="about-quote-text">"Design is storytelling in visual form. If it doesn't communicate, entertain, or stay with people, it isn't finished yet."</p>
+        </div>
       </div>
-      <div class="about-quote-card" id="aboutQuote">
-        <p class="about-quote-text">"Design is storytelling in visual form. If it doesn't communicate, entertain, or stay with people, it isn't finished yet."</p>
-      </div>
-    </div>
     </div>
 
-    <!-- EXPERIENCE -->
+    <!-- SNAP 2: EXPERIENCE -->
     <div class="about-snap-section">
-    <div class="about-exp-band">
-      <div class="band-label">Experience</div>
-      <div class="exp-grid">
-        <div class="exp-item"><span class="exp-num">01</span><span class="exp-text">Several years of experience in digital illustration and 2D animation</span></div>
-        <div class="exp-item"><span class="exp-num">02</span><span class="exp-text">Animation production for social media content, marketing campaigns, and digital brands</span></div>
-        <div class="exp-item"><span class="exp-num">03</span><span class="exp-text">Professional experience creating artwork and visual assets for Web3 and NFT projects</span></div>
-        <div class="exp-item"><span class="exp-num">04</span><span class="exp-text">Branding and visual identity development for startups and online communities</span></div>
-        <div class="exp-item"><span class="exp-num">05</span><span class="exp-text">Character design and visual development for original IPs and animated productions</span></div>
-        <div class="exp-item"><span class="exp-num">06</span><span class="exp-text">Co-founder and creative contributor at <a href="https://beanstudio.xyz" target="_blank" class="bean-link">Bean Studio</a>, a Web3-focused creative studio</span></div>
-      </div>
-    </div>
-    </div>
-
-    <!-- SERVICES -->
-    <div class="about-snap-section">
-    <div class="about-svc-band">
-      <div class="band-label">Services</div>
-      <div class="svc-accordion">
-        <div class="svc-row">
-          <div class="svc-header" onclick="toggleSvc(this)">
-            <div class="svc-header-left"><span class="svc-num">01</span><span class="svc-title">2D Animation</span></div>
-            <span class="svc-arrow">+</span>
-          </div>
-          <div class="svc-body"><div class="svc-tags-wrap">
-            <span class="svc-chip">Explainer animations</span><span class="svc-chip">Social media animations</span>
-            <span class="svc-chip">Motion graphics</span><span class="svc-chip">Animated shorts</span>
-            <span class="svc-chip">Character animation</span><span class="svc-chip">Promotional content</span>
-          </div></div>
-        </div>
-        <div class="svc-row">
-          <div class="svc-header" onclick="toggleSvc(this)">
-            <div class="svc-header-left"><span class="svc-num">02</span><span class="svc-title">2D Illustration</span></div>
-            <span class="svc-arrow">+</span>
-          </div>
-          <div class="svc-body"><div class="svc-tags-wrap">
-            <span class="svc-chip">Editorial illustrations</span><span class="svc-chip">Marketing artwork</span>
-            <span class="svc-chip">Digital illustrations</span><span class="svc-chip">Web3 & NFT artwork</span>
-            <span class="svc-chip">Social media content</span>
-          </div></div>
-        </div>
-        <div class="svc-row">
-          <div class="svc-header" onclick="toggleSvc(this)">
-            <div class="svc-header-left"><span class="svc-num">03</span><span class="svc-title">Character Design</span></div>
-            <span class="svc-arrow">+</span>
-          </div>
-          <div class="svc-body"><div class="svc-tags-wrap">
-            <span class="svc-chip">Original character creation</span><span class="svc-chip">Cartoon character development</span>
-            <span class="svc-chip">Animation-ready character sheets</span><span class="svc-chip">Turnarounds & expressions</span>
-          </div></div>
-        </div>
-        <div class="svc-row">
-          <div class="svc-header" onclick="toggleSvc(this)">
-            <div class="svc-header-left"><span class="svc-num">04</span><span class="svc-title">NFT &amp; Web3 Creative</span></div>
-            <span class="svc-arrow">+</span>
-          </div>
-          <div class="svc-body"><div class="svc-tags-wrap">
-            <span class="svc-chip">NFT collection artwork</span><span class="svc-chip">Trait design systems</span>
-            <span class="svc-chip">Collection visual direction</span><span class="svc-chip">Promotional assets</span>
-          </div></div>
-        </div>
-        <div class="svc-row">
-          <div class="svc-header" onclick="toggleSvc(this)">
-            <div class="svc-header-left"><span class="svc-num">05</span><span class="svc-title">Branding &amp; Visual Design</span></div>
-            <span class="svc-arrow">+</span>
-          </div>
-          <div class="svc-body"><div class="svc-tags-wrap">
-            <span class="svc-chip">Mascot design</span><span class="svc-chip">Campaign visuals</span>
-            <span class="svc-chip">Visual storytelling</span>
-          </div></div>
-        </div>
-        <div class="svc-row">
-          <div class="svc-header" onclick="toggleSvc(this)">
-            <div class="svc-header-left"><span class="svc-num">06</span><span class="svc-title">Creative Consulting</span></div>
-            <span class="svc-arrow">+</span>
-          </div>
-          <div class="svc-body"><div class="svc-tags-wrap">
-            <span class="svc-chip">Storytelling strategy</span><span class="svc-chip">Worldbuilding</span>
-            <span class="svc-chip">IP development</span><span class="svc-chip">Concept development</span>
-          </div></div>
+      <div class="about-exp-band">
+        <div class="band-label">Experience</div>
+        <div class="exp-grid">
+          <div class="exp-item"><span class="exp-num">01</span><span class="exp-text">Several years of experience in digital illustration and 2D animation</span></div>
+          <div class="exp-item"><span class="exp-num">02</span><span class="exp-text">Animation production for social media content, marketing campaigns, and digital brands</span></div>
+          <div class="exp-item"><span class="exp-num">03</span><span class="exp-text">Professional experience creating artwork and visual assets for Web3 and NFT projects</span></div>
+          <div class="exp-item"><span class="exp-num">04</span><span class="exp-text">Branding and visual identity development for startups and online communities</span></div>
+          <div class="exp-item"><span class="exp-num">05</span><span class="exp-text">Character design and visual development for original IPs and animated productions</span></div>
+          <div class="exp-item"><span class="exp-num">06</span><span class="exp-text">Co-founder and creative contributor at <a href="https://beanstudio.xyz" target="_blank" class="bean-link">Bean Studio</a>, a Web3-focused creative studio</span></div>
         </div>
       </div>
     </div>
-    </div>
 
-    <!-- BACK TO TOP -->
-    <div class="about-back-to-top" onclick="scrollAboutToTop()">
-      <span>Back to top</span>
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <!-- SNAP 3: SERVICES -->
+    <div class="about-snap-section">
+      <div class="about-svc-band">
+        <div class="band-label">Services</div>
+        <div class="svc-accordion">
+          <div class="svc-row"><div class="svc-header" onclick="toggleSvc(this)"><div class="svc-header-left"><span class="svc-num">01</span><span class="svc-title">2D Animation</span></div><span class="svc-arrow">+</span></div><div class="svc-body"><div class="svc-tags-wrap"><span class="svc-chip">Explainer animations</span><span class="svc-chip">Social media animations</span><span class="svc-chip">Motion graphics</span><span class="svc-chip">Animated shorts</span><span class="svc-chip">Character animation</span><span class="svc-chip">Promotional content</span></div></div></div>
+          <div class="svc-row"><div class="svc-header" onclick="toggleSvc(this)"><div class="svc-header-left"><span class="svc-num">02</span><span class="svc-title">2D Illustration</span></div><span class="svc-arrow">+</span></div><div class="svc-body"><div class="svc-tags-wrap"><span class="svc-chip">Editorial illustrations</span><span class="svc-chip">Marketing artwork</span><span class="svc-chip">Digital illustrations</span><span class="svc-chip">Web3 & NFT artwork</span><span class="svc-chip">Social media content</span></div></div></div>
+          <div class="svc-row"><div class="svc-header" onclick="toggleSvc(this)"><div class="svc-header-left"><span class="svc-num">03</span><span class="svc-title">Character Design</span></div><span class="svc-arrow">+</span></div><div class="svc-body"><div class="svc-tags-wrap"><span class="svc-chip">Original character creation</span><span class="svc-chip">Cartoon character development</span><span class="svc-chip">Animation-ready character sheets</span><span class="svc-chip">Turnarounds & expressions</span></div></div></div>
+          <div class="svc-row"><div class="svc-header" onclick="toggleSvc(this)"><div class="svc-header-left"><span class="svc-num">04</span><span class="svc-title">NFT &amp; Web3 Creative</span></div><span class="svc-arrow">+</span></div><div class="svc-body"><div class="svc-tags-wrap"><span class="svc-chip">NFT collection artwork</span><span class="svc-chip">Trait design systems</span><span class="svc-chip">Collection visual direction</span><span class="svc-chip">Promotional assets</span></div></div></div>
+          <div class="svc-row"><div class="svc-header" onclick="toggleSvc(this)"><div class="svc-header-left"><span class="svc-num">05</span><span class="svc-title">Branding &amp; Visual Design</span></div><span class="svc-arrow">+</span></div><div class="svc-body"><div class="svc-tags-wrap"><span class="svc-chip">Mascot design</span><span class="svc-chip">Campaign visuals</span><span class="svc-chip">Visual storytelling</span></div></div></div>
+          <div class="svc-row"><div class="svc-header" onclick="toggleSvc(this)"><div class="svc-header-left"><span class="svc-num">06</span><span class="svc-title">Creative Consulting</span></div><span class="svc-arrow">+</span></div><div class="svc-body"><div class="svc-tags-wrap"><span class="svc-chip">Storytelling strategy</span><span class="svc-chip">Worldbuilding</span><span class="svc-chip">IP development</span><span class="svc-chip">Concept development</span></div></div></div>
+        </div>
+        <div class="about-back-to-top" onclick="scrollAboutTop()">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          <span>Back to top</span>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -641,7 +570,10 @@ body::before{content:'';position:fixed;inset:0;
 </div>
 
 <script>
-/* CURSOR */
+/* ── CLOUDINARY CONFIG ── */
+const CLOUD='dvxzjzemg';
+
+/* ── CURSOR ── */
 const cur=document.getElementById('cursor'),curR=document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
 if(window.matchMedia('(hover:hover)and(pointer:fine)').matches){
@@ -656,14 +588,14 @@ if(window.matchMedia('(hover:hover)and(pointer:fine)').matches){
   });
 }
 
-/* THEME TOGGLE */
+/* ── THEME TOGGLE ── */
 function toggleTheme(){
-  const isLight=document.body.classList.toggle('light');
-  const knob=document.querySelector('.theme-btn-knob');
-  knob.textContent=isLight?'🌙':'☀️';
+  document.body.classList.toggle('light');
+  document.getElementById('themeKnob').textContent=
+    document.body.classList.contains('light')?'🌙':'☀️';
 }
 
-/* MOBILE MENU */
+/* ── MOBILE MENU ── */
 function toggleMobileMenu(fc){
   const b=document.getElementById('hamburger'),m=document.getElementById('mobileMenu');
   const o=m.classList.contains('open');
@@ -671,15 +603,17 @@ function toggleMobileMenu(fc){
   else{m.classList.add('open');b.classList.add('open')}
 }
 
-/* PAGE NAV */
+/* ── PAGE NAV ── */
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links a,.mobile-menu a').forEach(a=>a.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
+  const pg=document.getElementById('page-'+name);
+  pg.classList.add('active');
   const dl=document.getElementById('nav-'+name),ml=document.getElementById('mob-'+name);
   if(dl)dl.classList.add('active');if(ml)ml.classList.add('active');
-  toggleMobileMenu(true);window.scrollTo(0,0);
-  if(name==='about'){const ap=document.getElementById('page-about');if(ap)ap.scrollTop=0}
+  toggleMobileMenu(true);
+  /* reset scroll — about has its own container, others use window */
+  if(name==='about'){pg.scrollTop=0}else{window.scrollTo(0,0)}
   if(name==='works'&&!window._gbuilt){buildWorks();window._gbuilt=true}
   if(name==='home')runHomeAnim();
   if(name==='about')runAboutAnim();
@@ -688,24 +622,19 @@ function showPage(name){
 document.querySelectorAll('.nav-links a,.mobile-menu a').forEach(a=>
   a.addEventListener('click',e=>e.preventDefault()));
 
-/* HOME ANIMATION */
-const BIO='Hello! I am a highly skilled 2D artist with years of experience. My expertise encompasses animation, character design, background design, illustrations, NFT art, and game art. I understand the importance of clear communication and collaboration to bring your ideas to life. I thrive on frequent and consistent feedback throughout the entire process, working closely with you to ensure that your imagination is transformed into reality.';
+/* ── HOME ANIMATION ── */
+const BIO='Hello! I am a highly skilled 2D artist with years of experience. My expertise encompasses animation, character design, background design, illustrations, NFT art, and game art.';
 function runHomeAnim(){
   const lines=document.querySelectorAll('.hero-title-line');
-  const bio=document.getElementById('heroBio');
   const btn=document.getElementById('heroBtn');
   lines.forEach(l=>l.classList.remove('revealed'));
-  bio.textContent='';btn.classList.remove('revealed');
+  btn.classList.remove('revealed');
   lines.forEach((l,i)=>setTimeout(()=>l.classList.add('revealed'),100+i*140));
-  setTimeout(()=>{
-    let i=0;
-    (function tick(){if(i<BIO.length){bio.textContent+=BIO[i++];setTimeout(tick,16)}
-      else btn.classList.add('revealed')})();
-  },100+lines.length*140+80);
+  setTimeout(()=>btn.classList.add('revealed'),100+lines.length*140+200);
 }
 window.addEventListener('DOMContentLoaded',()=>setTimeout(runHomeAnim,150));
 
-/* ABOUT ANIMATION */
+/* ── ABOUT ANIMATION + HOVER SWAP ── */
 function runAboutAnim(){
   setTimeout(()=>{
     document.getElementById('aboutH1').classList.add('vis');
@@ -720,15 +649,26 @@ function runAboutAnim(){
     el.classList.remove('vis');
     setTimeout(()=>el.classList.add('vis'),300+i*60);
   });
+  /* wire up em hover → CTA swap via JS (more reliable than :has CSS) */
+  const em=document.getElementById('aboutEm');
+  const wrap=document.getElementById('aboutH1Wrap');
+  const swap=document.getElementById('aboutCtaSwap');
+  if(em&&wrap&&swap){
+    em.addEventListener('mouseenter',()=>{
+      wrap.classList.add('swapped');swap.classList.add('show');
+    });
+    wrap.addEventListener('mouseleave',()=>{
+      wrap.classList.remove('swapped');swap.classList.remove('show');
+    });
+  }
 }
 
-/* BACK TO TOP — scrolls the about page's own snap container back to start */
-function scrollAboutToTop(){
-  const container=document.getElementById('page-about');
-  if(container) container.scrollTo({top:0,behavior:'smooth'});
+/* ── ABOUT BACK TO TOP ── */
+function scrollAboutTop(){
+  document.getElementById('page-about').scrollTo({top:0,behavior:'smooth'});
 }
 
-/* SERVICES ACCORDION */
+/* ── SERVICES ACCORDION ── */
 function toggleSvc(header){
   const row=header.parentElement;
   const isOpen=row.classList.contains('open');
@@ -736,154 +676,75 @@ function toggleSvc(header){
   if(!isOpen)row.classList.add('open');
 }
 
-/* WORKS */
-const API_KEY='AIzaSyAAnjV5V-j8tBQPtAtgwgJO6AvK-V51DIA';
-const FOLDER_ID='13NhFUnXMZT8c7U2zAjdtRee_XD_igBLn';
-const PRIORITY_IDS=[
-  '16H0uDkCNXeYYIz_QKt80GGKoR_8Y5uN6','1Y7Y8fbFEFBBBq5FM3frFo0wf-hlBGv51',
-  '1JuVUZ49Ta1LoYBQacOTjqOmX7ST56KRq','1DSWFwWUPwupMk9nG12eOoQnw6PPfNpEU',
-  '1ZiSup2DvfP2AxlqITrOx82pj8nBPuuGY','1HUdxY6SgpFwmhZ8j6ddDGmxF14CO0zcf',
-  '1SR7fYAlg7LBU9GeEf9neL50Dz285NG7u','1BkGQLsaQ6ouy63sxj6Vzng5qf1EYigMy',
-  '1vAeprsMxjYG3Fzb570tstQ90KMYpnvil','1bK9aVnNLUMVJqvlnpHlQowSYshoWhtMe',
-  '1NwJZSDZEEf4X1cHUj91QGBQuqjIcCH3p','1Y9Aqz6XFQEDYOCPcE3XYkedG4RygC69M',
-  '1XNDio87ZQXB48vqMJQrFbAUUM-6D_MTr','1MxlWEWMSOuNrDISBReGUaKmnYbGn2zMe',
-  '1ZGbF7kWaNy9QSuZV_MJ6k67PE1TI3WBt','13SIeow2FzJPH8MYo0fIsO41aRddtpCxL',
-  '154JWlMPti_HDIXGhFFelTiZzkKXg3qmS','1A64HkQtPOadIQYI5XGTwpP5HWYjTPILN',
-  '1unNTIibgnB0CZYx_4BkJ26HefFx0i1jK','1R6FKVxZVVj3f8-Lr0dkYcxoW71iRfhEp',
+/* ── WORKS — CLOUDINARY HARDCODED ── */
+const PORTFOLIO_FOLDER='PORTFOLIO (2D animator-illustrator)';
+const WORKS_FOLDER='work samples';
+
+/* type: 'image' | 'video'  — ext for video: mp4, gif, etc. */
+const WORKS=[
+  /* ── PRIORITY (shown first, in this order) ── */
+  {folder:PORTFOLIO_FOLDER,id:'Pudgy_Penguin_n9motz',type:'image'},
+  {folder:PORTFOLIO_FOLDER,id:'Skop_House_c0i2cv',type:'video',ext:'mp4'},
+  {folder:WORKS_FOLDER,id:'notcoin_teaser_jd6io9',type:'video',ext:'mp4'},
+  {folder:WORKS_FOLDER,id:'Jeff_Final_mlnsoh',type:'video',ext:'mp4'},
+  /* ── ADD MORE PUBLIC IDs HERE ── */
+  /* e.g. {folder:PORTFOLIO_FOLDER,id:'YOUR_PUBLIC_ID',type:'image'}, */
 ];
-const FALLBACK_FILES=[
-  {id:'1Y9Aqz6XFQEDYOCPcE3XYkedG4RygC69M',name:'SATOSHI FINAL',type:'video'},
-  {id:'1A64HkQtPOadIQYI5XGTwpP5HWYjTPILN',name:'Bean Animation',type:'video'},
-  {id:'1QYFGimDsoEqjzSfy_vDHt3PCISLvHzX-',name:'cVt',type:'video'},
-  {id:'154JWlMPti_HDIXGhFFelTiZzkKXg3qmS',name:'Teddy Edited',type:'video'},
-  {id:'18YZOWoEA3MLT7opI7sWq2Z4Kd_Oo-5-0',name:'ERA Wallet',type:'video'},
-  {id:'1BkGQLsaQ6ouy63sxj6Vzng5qf1EYigMy',name:'Skop House',type:'video'},
-  {id:'1ey5z4KRDCEK7yF-DE06HEhxzJbgrbQ1V',name:'Bike Final',type:'video'},
-  {id:'1DSWFwWUPwupMk9nG12eOoQnw6PPfNpEU',name:'Notcoin Teaser',type:'video'},
-  {id:'13SIeow2FzJPH8MYo0fIsO41aRddtpCxL',name:'Jeff Final',type:'video'},
-  {id:'1x1bBAqF3AI3rlavb7bbJNJdnGT81m2el',name:'Hedgehog',type:'video'},
-  {id:'1tnB5ILuu_gDpJ0lGMHN0Q0VdiiI7Ubkg',name:'BearPixel',type:'video'},
-  {id:'1R6FKVxZVVj3f8-Lr0dkYcxoW71iRfhEp',name:'Pudgy Penguin',type:'video'},
-  {id:'1unNTIibgnB0CZYx_4BkJ26HefFx0i1jK',name:'HedgeHog Jup',type:'video'},
-  {id:'12eyqA-NxPVydr6PHhlki59LT0Uo1fD6A',name:'Lazy Men Celebratory',type:'video'},
-  {id:'16H0uDkCNXeYYIz_QKt80GGKoR_8Y5uN6',name:'Design 3',type:'image'},
-  {id:'1Y7Y8fbFEFBBBq5FM3frFo0wf-hlBGv51',name:'Designss 1',type:'image'},
-  {id:'1JuVUZ49Ta1LoYBQacOTjqOmX7ST56KRq',name:'Design 2',type:'image'},
-  {id:'1lld4HcTX1xrDeQE0AyBcPrsRgCQqBa64',name:'IMG 4239',type:'image'},
-  {id:'1HUdxY6SgpFwmhZ8j6ddDGmxF14CO0zcf',name:'Digi-Rabbit',type:'image'},
-  {id:'1ZiSup2DvfP2AxlqITrOx82pj8nBPuuGY',name:'Bean Sunset',type:'image'},
-  {id:'1rdxvsNaA1DJ8iPCVW45gQxLdxkjx_Zfs',name:'IMG 3281',type:'image'},
-  {id:'1vAeprsMxjYG3Fzb570tstQ90KMYpnvil',name:'IMG 6098',type:'image'},
-  {id:'1SR7fYAlg7LBU9GeEf9neL50Dz285NG7u',name:'Cliff',type:'image'},
-  {id:'1NwJZSDZEEf4X1cHUj91QGBQuqjIcCH3p',name:'IMG 6441',type:'image'},
-  {id:'1MxlWEWMSOuNrDISBReGUaKmnYbGn2zMe',name:'IMG 6442',type:'image'},
-  {id:'1bK9aVnNLUMVJqvlnpHlQowSYshoWhtMe',name:'Ramen',type:'image'},
-  {id:'1XNDio87ZQXB48vqMJQrFbAUUM-6D_MTr',name:'IMG 6826',type:'image'},
-  {id:'1UJ9VV__dYnRknljjkS8Kbof1M5ac3lTH',name:'IMG 2158',type:'image'},
-  {id:'11bePbjtQtu7MbXF7dacfcgcHHqQkwqwr',name:'IMG 2653',type:'image'},
-  {id:'1bdzNLDtjcoNTetK34SU8PSYUAzLMrq4V',name:'IMG 2154',type:'image'},
-  {id:'1iZGqVgwblC59fdD6Gx2jrhekCaojyY2P',name:'IMG 2157',type:'image'},
-  {id:'1ZGbF7kWaNy9QSuZV_MJ6k67PE1TI3WBt',name:'IMG 4327',type:'image'},
-  {id:'1GnDBFFYc8c_96g7GhsTX38ehyeqo0mmI',name:'IMG 4328',type:'image'},
-  {id:'1EK_3Dfkx9Kr8iuoe6YQ2e8fi6sT_Qlks',name:'IMG 2219',type:'image'},
-  {id:'1XMjWziVnFHnezehRedvJWzSOAdN5fOhw',name:'IMG 2216',type:'image'},
-  {id:'1KmFr2Rmp_vgfaO2HxsqS6Lcpg-smbUpc',name:'IMG 2218',type:'image'},
-  {id:'189tKoiyDh2YALI6BUEVo3FA6ufG-W_So',name:'IMG 2215',type:'image'},
-  {id:'13VJo9vbnONTa8J3PYPi3efEd--0ZRI5r',name:'Kyoku CN Complete',type:'image'},
-  {id:'12zeNXkfX6060IgGlsuSxaUSXlmFNI2s1',name:'Kyoku CN Style',type:'image'},
-  {id:'12ohhDmcvMoW2BRMvi6ooCZnFfCR0klBy',name:'1v1',type:'image'},
-  {id:'12mGC0nPEgJkMzFE76qzARf0aX6kl9Tk_',name:'Lazy Men',type:'image'},
-  {id:'12lyO7MIHw8GnXXMWgDD5o4aRIYmquHmo',name:'Santa 2',type:'image'},
-  {id:'12kfnYMMA5Lj0dMnlY6I-XJDIL0dDrXo-',name:'Landscape 2',type:'image'},
-  {id:'12glEUP-QjDJJHzt1FJ_JV2eLz9z1roPE',name:'Lazy Men Skate',type:'image'},
-];
+
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
-const thumb=id=>`https://drive.google.com/thumbnail?id=${id}&sz=w800`;
-const drivePreview=id=>`https://drive.google.com/file/d/${id}/preview`;
 
-function renderItem(grid,f){
-  const item=document.createElement('div');item.className='g-item';
-  const isVideo=f.mimeType?f.mimeType.startsWith('video/'):f.type==='video';
-  if(!isVideo){
-    const img=document.createElement('img');
-    img.src=thumb(f.id);img.alt=f.name||'';img.loading='lazy';
-    item.appendChild(img);
-    item.onclick=()=>openImg(thumb(f.id),f.name||'');
-  } else {
-    const wrap=document.createElement('div');wrap.className='vid-thumb-wrap';
-    const img=document.createElement('img');
-    img.src=thumb(f.id);img.alt=f.name||'';img.loading='lazy';
-    const btn=document.createElement('div');btn.className='vid-play-btn';
-    btn.innerHTML='<svg width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="26" r="26" fill="rgba(0,0,0,.45)"/><path d="M21 18l14 8-14 8V18z" fill="white"/></svg>';
-    wrap.appendChild(img);wrap.appendChild(btn);item.appendChild(wrap);
-    item.onclick=()=>openVideoInline(f.id,f.name||'');
-  }
-  grid.appendChild(item);
-}
-
-async function buildWorks(){
+function buildWorks(){
   const grid=document.getElementById('worksGrid');
-  grid.innerHTML='<p style="padding:60px;text-align:center;color:rgba(245,240,232,.3);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--font);font-weight:700;column-span:all">Loading...</p>';
-
-  const renderFallback=(reason)=>{
-    if(reason)console.warn('[Works] Falling back to local list — reason:',reason);
-    grid.innerHTML='';
-    const pf=PRIORITY_IDS.map(id=>FALLBACK_FILES.find(f=>f.id===id)).filter(Boolean);
-    const rf=shuffle(FALLBACK_FILES.filter(f=>!PRIORITY_IDS.includes(f.id)));
-    [...pf,...rf].forEach(f=>renderItem(grid,{...f,mimeType:f.type==='video'?'video/mp4':'image/jpeg'}));
-  };
-
-  let res;
-  try{
-    const url=`https://www.googleapis.com/drive/v3/files?q=%27${FOLDER_ID}%27+in+parents+and+trashed%3Dfalse&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=100`;
-    res=await fetch(url);
-  }catch(networkErr){
-    // fetch() itself threw — almost always a referrer-restricted API key,
-    // the Drive API not being enabled on the key's project, or no internet.
-    renderFallback('Network/CORS block before response — check API key referrer restrictions & that Drive API is enabled. Raw: '+networkErr.message);
-    return;
-  }
-
-  if(!res.ok){
-    // Got a real response from Google, but it's an error — read the actual reason.
-    let detail='HTTP '+res.status;
-    try{
-      const errBody=await res.json();
-      detail=errBody?.error?.message||detail;
-    }catch{}
-    renderFallback(detail);
-    return;
-  }
-
-  let data;
-  try{ data=await res.json() }
-  catch(parseErr){ renderFallback('Bad JSON from API: '+parseErr.message); return }
-
-  const files=(data.files||[]).filter(f=>f.mimeType.startsWith('image/')||f.mimeType.startsWith('video/'));
-  if(!files.length){ renderFallback('API returned 0 usable files — check folder sharing is "Anyone with the link"'); return }
-
   grid.innerHTML='';
-  const prioMap=new Map(PRIORITY_IDS.map((id,i)=>[id,i]));
-  const prio=new Array(PRIORITY_IDS.length);const rest=[];
-  files.forEach(f=>{prioMap.has(f.id)?prio[prioMap.get(f.id)]=f:rest.push(f)});
-  [...prio.filter(Boolean),...shuffle(rest)].forEach(f=>renderItem(grid,f));
+  /* keep first 4 (priority) in order, shuffle the rest */
+  const priority=WORKS.slice(0,4);
+  const rest=shuffle(WORKS.slice(4));
+  [...priority,...rest].forEach(w=>{
+    const item=document.createElement('div');item.className='g-item';
+    if(w.type==='image'){
+      /* image: use Cloudinary transformations for fast loading */
+      const img=document.createElement('img');
+      img.src=`https://res.cloudinary.com/${CLOUD}/image/upload/w_800,q_auto,f_auto/${encodeURIComponent(w.folder)}/${w.id}`;
+      img.alt=w.id.replace(/_[a-z0-9]+$/,'').replace(/_/g,' ');
+      img.loading='lazy';item.appendChild(img);
+      item.onclick=()=>openImg(
+        `https://res.cloudinary.com/${CLOUD}/image/upload/q_auto,f_auto/${encodeURIComponent(w.folder)}/${w.id}`,
+        img.alt);
+    } else {
+      /* video: poster thumbnail from Cloudinary, native <video> in lightbox */
+      const poster=`https://res.cloudinary.com/${CLOUD}/video/upload/w_800,q_auto,so_0/${encodeURIComponent(w.folder)}/${w.id}.jpg`;
+      const videoSrc=`https://res.cloudinary.com/${CLOUD}/video/upload/q_auto/${encodeURIComponent(w.folder)}/${w.id}.${w.ext||'mp4'}`;
+      const wrap=document.createElement('div');wrap.className='vid-thumb-wrap';
+      const img=document.createElement('img');img.src=poster;img.loading='lazy';
+      img.alt=w.id.replace(/_[a-z0-9]+$/,'').replace(/_/g,' ');
+      const btn=document.createElement('div');btn.className='vid-play-btn';
+      btn.innerHTML='<svg width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="26" r="26" fill="rgba(0,0,0,.45)"/><path d="M21 18l14 8-14 8V18z" fill="white"/></svg>';
+      wrap.appendChild(img);wrap.appendChild(btn);item.appendChild(wrap);
+      item.onclick=()=>openVideo(videoSrc,poster);
+    }
+    grid.appendChild(item);
+  });
 }
 
-/* LIGHTBOX */
+/* ── LIGHTBOX ── */
 function openImg(src,label){
   document.getElementById('lbInner').innerHTML=
     `<button class="lb-close" onclick="closeLightbox()">✕</button><img src="${src}" alt="${label}"/>`;
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function openVideoInline(id,label){
+function openVideo(src,poster){
   document.getElementById('lbInner').innerHTML=
     `<button class="lb-close" onclick="closeLightbox()">✕</button>
-     <div class="lb-vwrap"><iframe src="${drivePreview(id)}" allow="autoplay" allowfullscreen title="${label}"></iframe></div>`;
+     <div class="lb-vwrap">
+       <video src="${src}" poster="${poster}" controls autoplay playsinline></video>
+     </div>`;
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow='hidden';
 }
 function closeLightbox(){
+  /* pause any playing video */
+  const v=document.querySelector('#lbInner video');if(v)v.pause();
   document.getElementById('lightbox').classList.remove('open');
   document.getElementById('lbInner').innerHTML=`<button class="lb-close" onclick="closeLightbox()">✕</button>`;
   document.body.style.overflow='';
@@ -891,7 +752,7 @@ function closeLightbox(){
 function closeLightboxBg(e){if(e.target===document.getElementById('lightbox'))closeLightbox()}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
 
-/* CONTACT — Web3Forms */
+/* ── CONTACT — Web3Forms ── */
 async function submitForm(){
   const n=document.getElementById('fname').value.trim();
   const e=document.getElementById('femail').value.trim();
