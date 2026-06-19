@@ -405,7 +405,7 @@ body::before{content:'';position:fixed;inset:0;
 <nav>
   <div class="nav-brand" onclick="showPage('home')">
     <div class="nav-logo">
-      <img src="https://res.cloudinary.com/dvxzjzemg/image/upload/work%20samples/LOGO_sl2rh4" alt="Ojele"/>
+      <img src="https://res.cloudinary.com/dvxzjzemg/image/upload/f_auto,q_auto/LOGO_sl2rh4" alt="Ojele"/>
     </div>
     <span class="nav-name">Ojele's Portfolio</span>
   </div>
@@ -435,7 +435,7 @@ body::before{content:'';position:fixed;inset:0;
 <div id="page-home" class="page active">
   <section class="hero">
     <div class="hero-image-half">
-      <img src="https://res.cloudinary.com/dvxzjzemg/image/upload/work%20samples/HERO_aasguo" alt="Cityscape"/>
+      <img src="https://res.cloudinary.com/dvxzjzemg/image/upload/f_auto,q_auto/HERO_aasguo" alt="Cityscape"/>
     </div>
     <div class="hero-text-half">
       <div class="hero-titles">
@@ -677,18 +677,18 @@ function toggleSvc(header){
 }
 
 /* ── WORKS — CLOUDINARY HARDCODED ── */
-const PORTFOLIO_FOLDER='PORTFOLIO (2D animator-illustrator)';
-const WORKS_FOLDER='work samples';
+/* NOTE: this Cloudinary account's delivery URLs do NOT include the folder
+   name in the path — public_id alone is enough, confirmed via the
+   "Copy URL" link Cloudinary itself generated:
+   https://player.cloudinary.com/embed/?cloud_name=dvxzjzemg&public_id=Pudgy_Penguin_n9motz */
 
-/* type: 'image' | 'video'  — ext for video: mp4, gif, etc. */
+/* type: 'image' | 'video' */
 const WORKS=[
   /* ── PRIORITY (shown first, in this order) ── */
-  {folder:PORTFOLIO_FOLDER,id:'Pudgy_Penguin_n9motz',type:'image'},
-  {folder:PORTFOLIO_FOLDER,id:'Skop_House_c0i2cv',type:'video',ext:'mp4'},
-  {folder:WORKS_FOLDER,id:'notcoin_teaser_jd6io9',type:'video',ext:'mp4'},
-  {folder:WORKS_FOLDER,id:'Jeff_Final_mlnsoh',type:'video',ext:'mp4'},
+  {id:'Pudgy_Penguin_n9motz',type:'video'},
+  {id:'Skop_House_c0i2cv',type:'video'},
   /* ── ADD MORE PUBLIC IDs HERE ── */
-  /* e.g. {folder:PORTFOLIO_FOLDER,id:'YOUR_PUBLIC_ID',type:'image'}, */
+  /* e.g. {id:'YOUR_PUBLIC_ID',type:'image'}, */
 ];
 
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
@@ -696,24 +696,21 @@ function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.fl
 function buildWorks(){
   const grid=document.getElementById('worksGrid');
   grid.innerHTML='';
-  /* keep first 4 (priority) in order, shuffle the rest */
-  const priority=WORKS.slice(0,4);
-  const rest=shuffle(WORKS.slice(4));
+  const priority=WORKS.slice(0,2);
+  const rest=shuffle(WORKS.slice(2));
   [...priority,...rest].forEach(w=>{
     const item=document.createElement('div');item.className='g-item';
     if(w.type==='image'){
-      /* image: use Cloudinary transformations for fast loading */
       const img=document.createElement('img');
-      img.src=`https://res.cloudinary.com/${CLOUD}/image/upload/w_800,q_auto,f_auto/${encodeURIComponent(w.folder)}/${w.id}`;
+      img.src=`https://res.cloudinary.com/${CLOUD}/image/upload/w_800,q_auto,f_auto/${encodeURIComponent(w.id)}`;
       img.alt=w.id.replace(/_[a-z0-9]+$/,'').replace(/_/g,' ');
       img.loading='lazy';item.appendChild(img);
       item.onclick=()=>openImg(
-        `https://res.cloudinary.com/${CLOUD}/image/upload/q_auto,f_auto/${encodeURIComponent(w.folder)}/${w.id}`,
+        `https://res.cloudinary.com/${CLOUD}/image/upload/q_auto,f_auto/${encodeURIComponent(w.id)}`,
         img.alt);
     } else {
-      /* video: poster thumbnail from Cloudinary, native <video> in lightbox */
-      const poster=`https://res.cloudinary.com/${CLOUD}/video/upload/w_800,q_auto,so_0/${encodeURIComponent(w.folder)}/${w.id}.jpg`;
-      const videoSrc=`https://res.cloudinary.com/${CLOUD}/video/upload/q_auto/${encodeURIComponent(w.folder)}/${w.id}.${w.ext||'mp4'}`;
+      const poster=`https://res.cloudinary.com/${CLOUD}/video/upload/w_800,q_auto,so_0/${encodeURIComponent(w.id)}.jpg`;
+      const videoSrc=`https://res.cloudinary.com/${CLOUD}/video/upload/q_auto/${encodeURIComponent(w.id)}.mp4`;
       const wrap=document.createElement('div');wrap.className='vid-thumb-wrap';
       const img=document.createElement('img');img.src=poster;img.loading='lazy';
       img.alt=w.id.replace(/_[a-z0-9]+$/,'').replace(/_/g,' ');
